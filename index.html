@@ -23,7 +23,54 @@
             color: var(--text-main);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            position: relative;
         }
+
+        /* --- 1. EFECTOS DE FONDO PREMIUM (Cinematic) --- */
+        
+        /* Grano de película (Film Grain) */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; /* Para que no estorbe los clics */
+            z-index: 9999;
+            opacity: 0.04; /* Súper sutil */
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* Resplandor animado de fondo (Ambient Glow) */
+        .ambient-glow {
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(25, 25, 35, 0.6) 0%, rgba(7, 7, 8, 0) 70%);
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: -1;
+            animation: floatGlow 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(15vw, 10vh) scale(1.2); }
+        }
+
+        /* --- ANIMACIONES DE SCROLL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.9s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.9s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        header h1.reveal { transition-delay: 0.1s; }
+        header .bio.reveal { transition-delay: 0.2s; }
 
         /* --- HERO EDITORIAL --- */
         header {
@@ -31,9 +78,10 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 12vw; /* Más margen lateral */
-            background: linear-gradient(180deg, #111115 0%, var(--bg-base) 100%);
+            padding: 0 12vw; 
             border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 1;
         }
 
         .role-tag {
@@ -80,9 +128,11 @@
 
         /* --- EDITORIAL GALLERY --- */
         .portfolio-section {
-            padding: 6rem 12vw; /* Aumentamos el aire a los lados */
+            padding: 6rem 12vw; 
             max-width: 2000px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .section-header {
@@ -97,7 +147,6 @@
             padding-bottom: 1rem;
         }
 
-        /* 3 Columnas para hacer las imágenes más chicas en Desktop */
         .editorial-grid {
             column-count: 3;
             column-gap: 3vw;
@@ -128,7 +177,6 @@
             filter: brightness(1.05);
         }
 
-        /* Títulos de galería */
         .artwork-meta {
             margin-top: 15px;
             display: flex;
@@ -177,7 +225,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 10000;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s ease;
@@ -192,7 +240,7 @@
             max-width: 90vw;
             max-height: 90vh;
             object-fit: contain;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
 
         .close-btn {
@@ -212,6 +260,8 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+            position: relative;
+            z-index: 1;
         }
 
         .footer-info h4 {
@@ -220,36 +270,31 @@
             margin-bottom: 10px;
         }
 
-        /* --- RESPONSIVE DESIGN (Tablets y Celulares) --- */
+        /* --- RESPONSIVE --- */
         @media (max-width: 1024px) {
-            .editorial-grid { column-count: 2; } /* 2 columnas en Tablets */
+            .editorial-grid { column-count: 2; } 
             header, .portfolio-section, footer { padding-left: 8vw; padding-right: 8vw; }
         }
 
         @media (max-width: 600px) {
             .editorial-grid { column-count: 1; }
-            
-            /* Ajuste ANTI-SCROLL para celulares */
-            .artwork, .video-container {
-                width: 85%; /* Achica la imagen para que no tome toda la pantalla */
-                margin-left: auto;
-                margin-right: auto;
-                margin-bottom: 50px;
-            }
-            
+            .artwork, .video-container { width: 85%; margin-left: auto; margin-right: auto; margin-bottom: 50px; }
             header, .portfolio-section, footer { padding-left: 5vw; padding-right: 5vw; }
             footer { flex-direction: column; align-items: flex-start; gap: 20px; }
-            
-            .artwork-meta { align-items: center; text-align: center; } /* Centra los títulos en móvil */
+            .artwork-meta { align-items: center; text-align: center; } 
         }
     </style>
 </head>
 <body>
 
+    <!-- Capas de Efectos de Fondo -->
+    <div class="ambient-glow"></div>
+    <div class="noise-overlay"></div>
+
     <header>
-        <div class="role-tag">Portfolio 2026 &mdash; Veracruz, MX</div>
-        <h1>Sahid Exsome<br><span>Visual Designer</span> & Video Editor</h1>
-        <p class="bio">
+        <div class="role-tag reveal">Portfolio 2026 &mdash; Veracruz, MX</div>
+        <h1 class="reveal">Sahid Exsome<br><span>Visual Designer</span> & Video Editor</h1>
+        <p class="bio reveal">
             Crafting high-conversion digital advertising, institutional communication, and dynamic audiovisual content. Focused on visual problem-solving and brand storytelling.
         </p>
     </header>
@@ -257,52 +302,52 @@
     <main>
         <!-- PUBLICIDAD -->
         <section class="portfolio-section">
-            <div class="section-header"><h2>Advertising & Digital Art</h2></div>
+            <div class="section-header reveal"><h2>Advertising & Digital Art</h2></div>
             <div class="editorial-grid">
                 
-                <div class="artwork" onclick="openLightbox('ads-coffee.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('ads-coffee.jpg')">
                     <div class="artwork-img-wrapper"><img src="ads-coffee.jpg" alt="Coffee Concept"></div>
                     <div class="artwork-meta">
                         <h3>Coffee Brand Aesthetic</h3><span>Photo-manipulation</span>
                     </div>
                 </div>
 
-                <div class="artwork" onclick="openLightbox('ads-burger-tabloid.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('ads-burger-tabloid.jpg')">
                     <div class="artwork-img-wrapper"><img src="ads-burger-tabloid.jpg" alt="Burger Tabloid"></div>
                     <div class="artwork-meta">
                         <h3>Burger Promo Poster</h3><span>Print / Tabloid</span>
                     </div>
                 </div>
 
-                <div class="artwork" onclick="openLightbox('ads-bacardi-01.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('ads-bacardi-01.jpg')">
                     <div class="artwork-img-wrapper"><img src="ads-bacardi-01.jpg" alt="Bacardi Concept"></div>
                     <div class="artwork-meta">
                         <h3>Bacardí Campaign I</h3><span>Digital Ad</span>
                     </div>
                 </div>
 
-                <div class="artwork" onclick="openLightbox('ads-burger-square.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('ads-burger-square.jpg')">
                     <div class="artwork-img-wrapper"><img src="ads-burger-square.jpg" alt="Burger Square"></div>
                     <div class="artwork-meta">
                         <h3>Burger Social Campaign</h3><span>Social Media</span>
                     </div>
                 </div>
 
-                <div class="artwork" onclick="openLightbox('ads-bacardi-02.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('ads-bacardi-02.jpg')">
                     <div class="artwork-img-wrapper"><img src="ads-bacardi-02.jpg" alt="Bacardi Concept 2"></div>
                     <div class="artwork-meta">
                         <h3>Bacardí Campaign II</h3><span>Digital Ad</span>
                     </div>
                 </div>
 
-                <div class="artwork" onclick="openLightbox('ads-corporate.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('ads-corporate.jpg')">
                     <div class="artwork-img-wrapper"><img src="ads-corporate.jpg" alt="Corporate Ad"></div>
                     <div class="artwork-meta">
                         <h3>Corporate Promotion</h3><span>Freelance Project</span>
                     </div>
                 </div>
 
-                <div class="artwork" onclick="openLightbox('ads-halloween-uni.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('ads-halloween-uni.jpg')">
                     <div class="artwork-img-wrapper"><img src="ads-halloween-uni.jpg" alt="Halloween Flyer"></div>
                     <div class="artwork-meta">
                         <h3>University Halloween Event</h3><span>Event Design</span>
@@ -313,46 +358,46 @@
         </section>
 
         <!-- INSTITUCIONAL & RETOQUE -->
-        <section class="portfolio-section" style="background-color: #0a0a0c;">
-            <div class="section-header"><h2>Institutional & Photo Retouching</h2></div>
+        <section class="portfolio-section" style="background-color: rgba(10, 10, 12, 0.5);">
+            <div class="section-header reveal"><h2>Institutional & Photo Retouching</h2></div>
             <div class="editorial-grid">
                 
-                <div class="artwork" onclick="openLightbox('photo-art-01.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('photo-art-01.jpg')">
                     <div class="artwork-img-wrapper"><img src="photo-art-01.jpg" alt="Urban Photo"></div>
                     <div class="artwork-meta">
                         <h3>Urban Portrait Edit</h3><span>Creative Retouching</span>
                     </div>
                 </div>
 
-                <div class="artwork" onclick="openLightbox('inst-canacintra-01.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('inst-canacintra-01.jpg')">
                     <div class="artwork-img-wrapper"><img src="inst-canacintra-01.jpg" alt="Canacintra 1"></div>
                     <div class="artwork-meta">
                         <h3>Women in Engineering</h3><span>CANACINTRA</span>
                     </div>
                 </div>
 
-                <div class="artwork" onclick="openLightbox('photo-product-coffee.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('photo-product-coffee.jpg')">
                     <div class="artwork-img-wrapper"><img src="photo-product-coffee.jpg" alt="Coffee Photo"></div>
                     <div class="artwork-meta">
                         <h3>Product Photography</h3><span>Color Grading</span>
                     </div>
                 </div>
 
-                <div class="artwork" onclick="openLightbox('inst-canacintra-02.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('inst-canacintra-02.jpg')">
                     <div class="artwork-img-wrapper"><img src="inst-canacintra-02.jpg" alt="Canacintra 2"></div>
                     <div class="artwork-meta">
                         <h3>Business Breakfast Promo</h3><span>CANACINTRA</span>
                     </div>
                 </div>
 
-                <div class="artwork" onclick="openLightbox('inst-canacintra-03.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('inst-canacintra-03.jpg')">
                     <div class="artwork-img-wrapper"><img src="inst-canacintra-03.jpg" alt="Canacintra 3"></div>
                     <div class="artwork-meta">
                         <h3>Presidential Greeting</h3><span>CANACINTRA</span>
                     </div>
                 </div>
 
-                <div class="artwork" onclick="openLightbox('inst-canacintra-04.jpg')">
+                <div class="artwork reveal" onclick="openLightbox('inst-canacintra-04.jpg')">
                     <div class="artwork-img-wrapper"><img src="inst-canacintra-04.jpg" alt="Canacintra 4"></div>
                     <div class="artwork-meta">
                         <h3>Governor Recognition</h3><span>CANACINTRA</span>
@@ -364,9 +409,9 @@
 
         <!-- VIDEO -->
         <section class="portfolio-section">
-            <div class="section-header"><h2>Audiovisual Production</h2></div>
+            <div class="section-header reveal"><h2>Audiovisual Production</h2></div>
             <div class="video-grid">
-                <div class="video-container">
+                <div class="video-container reveal">
                     <div class="video-wrapper">
                         <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" allow="autoplay"></iframe>
                     </div>
@@ -374,7 +419,7 @@
                         <h3>Video Editing Reel</h3><span>Adobe Premiere Pro</span>
                     </div>
                 </div>
-                <div class="video-container">
+                <div class="video-container reveal">
                     <div class="video-wrapper">
                         <iframe src="https://drive.google.com/file/d/1dTivB_KNOnZ_x4RBEVkNKt4sx-zPAXdp/preview" allow="autoplay"></iframe>
                     </div>
@@ -392,7 +437,7 @@
         <img id="lightbox-img" src="" alt="Zoomed Artwork">
     </div>
 
-    <footer>
+    <footer class="reveal">
         <div class="footer-info">
             <h4>Ready to collaborate?</h4>
             <p style="color: var(--text-muted);">shdexsa@gmail.com | +52 229 520 7948</p>
@@ -401,6 +446,27 @@
     </footer>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach((element) => {
+                observer.observe(element);
+            });
+        });
+
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
