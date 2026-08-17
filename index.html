@@ -31,7 +31,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 5vw;
+            padding: 0 12vw; /* Más margen lateral */
             background: linear-gradient(180deg, #111115 0%, var(--bg-base) 100%);
             border-bottom: 1px solid var(--border);
         }
@@ -56,12 +56,12 @@
         }
 
         h1 {
-            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-size: clamp(3rem, 7vw, 6.5rem);
             font-weight: 800;
-            line-height: 1;
-            letter-spacing: -3px;
+            line-height: 1.05;
+            letter-spacing: -2px;
             margin-bottom: 1.5rem;
-            max-width: 1000px;
+            max-width: 1100px;
         }
 
         h1 span {
@@ -73,14 +73,16 @@
 
         .bio {
             max-width: 600px;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 300;
             color: #a0a0a0;
         }
 
-        /* --- EDITORIAL GALLERY (Not Instagram!) --- */
+        /* --- EDITORIAL GALLERY --- */
         .portfolio-section {
-            padding: 8rem 5vw;
+            padding: 6rem 12vw; /* Aumentamos el aire a los lados */
+            max-width: 2000px;
+            margin: 0 auto;
         }
 
         .section-header {
@@ -88,28 +90,23 @@
         }
 
         .section-header h2 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 300;
             letter-spacing: -1px;
             border-bottom: 1px solid var(--border);
             padding-bottom: 1rem;
         }
 
-        /* Masonry Real: Respeta tamaños originales */
+        /* 3 Columnas para hacer las imágenes más chicas en Desktop */
         .editorial-grid {
-            column-count: 2;
-            column-gap: 40px;
-        }
-
-        @media (max-width: 800px) {
-            .editorial-grid { column-count: 1; }
+            column-count: 3;
+            column-gap: 3vw;
         }
 
         .artwork {
             break-inside: avoid;
-            margin-bottom: 60px; /* Mucho respiro entre obras */
+            margin-bottom: 60px; 
             cursor: zoom-in;
-            group: hover;
         }
 
         .artwork-img-wrapper {
@@ -131,22 +128,23 @@
             filter: brightness(1.05);
         }
 
-        /* Títulos de galería de arte */
+        /* Títulos de galería */
         .artwork-meta {
             margin-top: 15px;
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .artwork-meta h3 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: var(--accent);
+            line-height: 1.2;
         }
 
         .artwork-meta span {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -156,7 +154,7 @@
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            gap: 4vw;
         }
 
         .video-wrapper {
@@ -209,7 +207,7 @@
 
         /* --- FOOTER --- */
         footer {
-            padding: 6rem 5vw;
+            padding: 6rem 12vw;
             border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
@@ -222,8 +220,27 @@
             margin-bottom: 10px;
         }
 
+        /* --- RESPONSIVE DESIGN (Tablets y Celulares) --- */
+        @media (max-width: 1024px) {
+            .editorial-grid { column-count: 2; } /* 2 columnas en Tablets */
+            header, .portfolio-section, footer { padding-left: 8vw; padding-right: 8vw; }
+        }
+
         @media (max-width: 600px) {
+            .editorial-grid { column-count: 1; }
+            
+            /* Ajuste ANTI-SCROLL para celulares */
+            .artwork, .video-container {
+                width: 85%; /* Achica la imagen para que no tome toda la pantalla */
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 50px;
+            }
+            
+            header, .portfolio-section, footer { padding-left: 5vw; padding-right: 5vw; }
             footer { flex-direction: column; align-items: flex-start; gap: 20px; }
+            
+            .artwork-meta { align-items: center; text-align: center; } /* Centra los títulos en móvil */
         }
     </style>
 </head>
@@ -295,7 +312,7 @@
             </div>
         </section>
 
-        <!-- INSTITUCIONAL & RETOQUE MÍXTO -->
+        <!-- INSTITUCIONAL & RETOQUE -->
         <section class="portfolio-section" style="background-color: #0a0a0c;">
             <div class="section-header"><h2>Institutional & Photo Retouching</h2></div>
             <div class="editorial-grid">
@@ -310,14 +327,14 @@
                 <div class="artwork" onclick="openLightbox('inst-canacintra-01.jpg')">
                     <div class="artwork-img-wrapper"><img src="inst-canacintra-01.jpg" alt="Canacintra 1"></div>
                     <div class="artwork-meta">
-                        <h3>Women in Engineering Day</h3><span>CANACINTRA</span>
+                        <h3>Women in Engineering</h3><span>CANACINTRA</span>
                     </div>
                 </div>
 
                 <div class="artwork" onclick="openLightbox('photo-product-coffee.jpg')">
                     <div class="artwork-img-wrapper"><img src="photo-product-coffee.jpg" alt="Coffee Photo"></div>
                     <div class="artwork-meta">
-                        <h3>Product Photography</h3><span>Color Grading & Lights</span>
+                        <h3>Product Photography</h3><span>Color Grading</span>
                     </div>
                 </div>
 
@@ -349,14 +366,18 @@
         <section class="portfolio-section">
             <div class="section-header"><h2>Audiovisual Production</h2></div>
             <div class="video-grid">
-                <div class="video-wrapper">
-                    <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" allow="autoplay"></iframe>
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" allow="autoplay"></iframe>
+                    </div>
                     <div class="artwork-meta">
                         <h3>Video Editing Reel</h3><span>Adobe Premiere Pro</span>
                     </div>
                 </div>
-                <div class="video-wrapper">
-                    <iframe src="https://drive.google.com/file/d/1dTivB_KNOnZ_x4RBEVkNKt4sx-zPAXdp/preview" allow="autoplay"></iframe>
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="https://drive.google.com/file/d/1dTivB_KNOnZ_x4RBEVkNKt4sx-zPAXdp/preview" allow="autoplay"></iframe>
+                    </div>
                     <div class="artwork-meta">
                         <h3>Short Film Trailer</h3><span>Directing & Editing</span>
                     </div>
