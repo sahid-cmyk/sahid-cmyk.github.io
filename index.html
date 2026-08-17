@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahid Exsome | Visual Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+        
+        :root {
+            --bg-color: #0a0a0c;
+            --surface-color: #16161a;
+            --text-main: #f0f0f0;
+            --text-muted: #94a1b2;
+            --accent: #fffffe;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header / Hero Section */
+        header {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(circle at 50% 0%, #1f1f2e 0%, var(--bg-color) 70%);
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #fff 0%, #71717a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            color: var(--text-muted);
+            margin: 10px 0 0 0;
+        }
+
+        .location {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .bio-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* Container y Secciones */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 5rem 0 2rem 0;
+            border-bottom: 1px solid #2a2a35;
+            padding-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        /* Grids para Portafolio */
+        .masonry-grid {
+            column-count: 2;
+            column-gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .masonry-grid {
+                column-count: 1;
+            }
+        }
+
+        .grid-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--surface-color);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            z-index: 1;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: brightness(0.9);
+            transition: filter 0.4s ease;
+        }
+
+        .grid-item:hover img {
+            filter: brightness(1.1);
+        }
+
+        /* Video Section */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .video-item iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: none;
+            border-radius: 12px;
+            background-color: var(--surface-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            outline: none;
+        }
+
+        /* Animaciones al Scrollear */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+            background-color: var(--surface-color);
+            color: var(--text-muted);
+            border-top: 1px solid #2a2a35;
+        }
+
+        footer strong {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fade-up">
+        <h1>Sahid Exsome</h1>
+        <h2>Graphic Designer & Video Editor</h2>
+        <div class="location">Veracruz, Mexico</div>
+        
+        <div class="bio-container">
+            <p>Creative professional with 3+ years of combined experience across corporate environments, digital marketing, and independent audiovisual production. Specialized in delivering high-impact advertising assets, institutional communication, and dynamic video content tailored for modern brands.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- SECCIÓN 1: ADVERTISING & DIGITAL DESIGN -->
+        <section>
+            <h3 class="section-title fade-up">Advertising & Digital Design</h3>
+            <div class="masonry-grid">
+                <div class="grid-item fade-up"><img src="ads-coffee.jpg" alt="Coffee Advertising"></div>
+                <div class="grid-item fade-up"><img src="ads-burger-tabloid.jpg" alt="Burger Promo Tabloid"></div>
+                <div class="grid-item fade-up"><img src="ads-burger-square.jpg" alt="Burger Promo Square"></div>
+                <div class="grid-item fade-up"><img src="ads-bacardi-01.jpg" alt="Bacardi Campaign 1"></div>
+                <div class="grid-item fade-up"><img src="ads-bacardi-02.jpg" alt="Bacardi Campaign 2"></div>
+                <div class="grid-item fade-up"><img src="ads-corporate.jpg" alt="Corporate Ad"></div>
+                <div class="grid-item fade-up"><img src="ads-halloween-uni.jpg" alt="University Halloween Flyer"></div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: INSTITUTIONAL & CORPORATE -->
+        <section>
+            <h3 class="section-title fade-up">Institutional & Corporate</h3>
+            <div class="masonry-grid">
+                <div class="grid-item fade-up"><img src="inst-canacintra-01.jpg" alt="Institutional Flyer 1"></div>
+                <div class="grid-item fade-up"><img src="inst-canacintra-02.jpg" alt="Institutional Flyer 2"></div>
+                <div class="grid-item fade-up"><img src="inst-canacintra-03.jpg" alt="Institutional Flyer 3"></div>
+                <div class="grid-item fade-up"><img src="inst-canacintra-04.jpg" alt="Institutional Flyer 4"></div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: CREATIVE RETOUCHING & PHOTO-ART -->
+        <section>
+            <h3 class="section-title fade-up">Creative Retouching & Photo-Art</h3>
+            <div class="masonry-grid">
+                <div class="grid-item fade-up"><img src="photo-art-01.jpg" alt="Urban Photo Retouching"></div>
+                <div class="grid-item fade-up"><img src="photo-product-coffee.jpg" alt="Product Photo Retouching"></div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: VIDEO PRODUCTION -->
+        <section>
+            <h3 class="section-title fade-up">Video Production</h3>
+            <div class="video-grid">
+                <!-- Demo Reel -->
+                <div class="video-item fade-up">
+                    <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" allow="autoplay"></iframe>
+                </div>
+                <!-- Cortometraje Tráiler -->
+                <div class="video-item fade-up">
+                    <iframe src="https://drive.google.com/file/d/1dTivB_KNOnZ_x4RBEVkNKt4sx-zPAXdp/preview" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="fade-up">
+        <strong>Let's create something impactful.</strong>
+        <p>shdexsa@gmail.com | +52 229 520 7948</p>
+        <p>&copy; 2026 Sahid Exsome. All rights reserved.</p>
+    </footer>
+
+    <!-- Script para animaciones de Scroll -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-up').forEach((element) => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
