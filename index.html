@@ -5,175 +5,184 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sahid Exsome | Visual Portfolio</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=Playfair+Display:ital@0;1&display=swap');
         
         :root {
-            --bg-base: #050505;
-            --bg-surface: #111111;
-            --text-primary: #f5f5f5;
-            --text-secondary: #888888;
+            --bg-base: #070708;
+            --text-main: #f0f0f0;
+            --text-muted: #737373;
             --accent: #ffffff;
-            --border-subtle: #222222;
+            --border: #1a1a1a;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Manrope', sans-serif;
             background-color: var(--bg-base);
-            color: var(--text-primary);
+            color: var(--text-main);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO EDITORIAL --- */
         header {
-            padding: 6rem 2rem 3rem;
-            text-align: center;
-            background: radial-gradient(circle at 50% 0%, #1a1a24 0%, var(--bg-base) 80%);
-            border-bottom: 1px solid var(--border-subtle);
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5vw;
+            background: linear-gradient(180deg, #111115 0%, var(--bg-base) 100%);
+            border-bottom: 1px solid var(--border);
         }
 
-        .hero-badge {
-            font-size: 0.85rem;
+        .role-tag {
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .role-tag::before {
+            content: "";
+            display: block;
+            width: 30px;
+            height: 1px;
+            background-color: var(--text-muted);
         }
 
         h1 {
-            font-size: clamp(3rem, 7vw, 5rem);
-            font-weight: 700;
-            letter-spacing: -2px;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -3px;
+            margin-bottom: 1.5rem;
+            max-width: 1000px;
         }
 
-        h2 {
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
-            font-weight: 300;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
+        h1 span {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-muted);
         }
 
         .bio {
-            max-width: 700px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-            color: #b0b0b0;
+            max-width: 600px;
+            font-size: 1.2rem;
             font-weight: 300;
+            color: #a0a0a0;
         }
 
-        /* --- FILTER MENU --- */
-        .filter-menu {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            padding: 2rem;
-            position: sticky;
-            top: 0;
-            background-color: rgba(5, 5, 5, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 10;
-            border-bottom: 1px solid var(--border-subtle);
+        /* --- EDITORIAL GALLERY (Not Instagram!) --- */
+        .portfolio-section {
+            padding: 8rem 5vw;
         }
 
-        .filter-btn {
-            background: transparent;
-            color: var(--text-secondary);
-            border: 1px solid transparent;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .section-header {
+            margin-bottom: 4rem;
         }
 
-        .filter-btn:hover {
-            color: var(--text-primary);
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: -1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
         }
 
-        .filter-btn.active {
-            color: var(--bg-base);
-            background-color: var(--accent);
+        /* Masonry Real: Respeta tamaños originales */
+        .editorial-grid {
+            column-count: 2;
+            column-gap: 40px;
         }
 
-        /* --- GALLERY GRID --- */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
+        @media (max-width: 800px) {
+            .editorial-grid { column-count: 1; }
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: var(--bg-surface);
+        .artwork {
+            break-inside: avoid;
+            margin-bottom: 60px; /* Mucho respiro entre obras */
             cursor: zoom-in;
-            aspect-ratio: 1 / 1; /* Cuadrados perfectos para la miniatura */
-            transition: transform 0.3s ease, opacity 0.4s ease;
+            group: hover;
         }
 
-        .gallery-item img {
+        .artwork-img-wrapper {
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: #111;
+        }
+
+        .artwork img {
             width: 100%;
-            height: 100%;
-            object-fit: cover; /* Recorta el centro para que se vea uniforme */
-            filter: grayscale(20%) brightness(0.8);
-            transition: all 0.4s ease;
+            height: auto;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.7s ease;
+            filter: brightness(0.85);
         }
 
-        .gallery-item:hover img {
-            filter: grayscale(0%) brightness(1);
-            transform: scale(1.05);
+        .artwork:hover img {
+            transform: scale(1.03);
+            filter: brightness(1.05);
         }
 
-        /* Item de video (no se recorta, mantiene formato horizontal) */
-        .gallery-item.video {
+        /* Títulos de galería de arte */
+        .artwork-meta {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .artwork-meta h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .artwork-meta span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- VIDEO SECTION --- */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .video-wrapper {
+            border-radius: 4px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .video-wrapper iframe {
+            width: 100%;
             aspect-ratio: 16 / 9;
-            grid-column: span 1;
-            cursor: default;
-        }
-        
-        @media (min-width: 768px) {
-            .gallery-item.video {
-                grid-column: span 2; /* Los videos ocupan dos espacios en pantallas grandes */
-            }
-        }
-
-        .gallery-item iframe {
-            width: 100%;
-            height: 100%;
             border: none;
         }
 
-        /* Ocultar items filtrados */
-        .hide {
-            display: none;
-        }
-
-        /* --- LIGHTBOX (PANTALLA COMPLETA) --- */
+        /* --- LIGHTBOX --- */
         .lightbox {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
+            background-color: rgba(5, 5, 8, 0.98);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(5px);
+            transition: opacity 0.4s ease;
         }
 
         .lightbox.active {
@@ -182,138 +191,209 @@
         }
 
         .lightbox img {
-            max-width: 90%;
+            max-width: 90vw;
             max-height: 90vh;
-            object-fit: contain; /* Aquí sí muestra la imagen en su proporción original */
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            object-fit: contain;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
         .close-btn {
             position: absolute;
-            top: 30px;
-            right: 40px;
+            top: 30px; right: 40px;
             color: white;
             font-size: 40px;
             cursor: pointer;
-            font-weight: 300;
-            transition: color 0.3s;
+            font-family: sans-serif;
+            font-weight: 100;
         }
 
-        .close-btn:hover { color: #aaaaaa; }
-
+        /* --- FOOTER --- */
         footer {
-            text-align: center;
-            padding: 4rem 2rem;
-            border-top: 1px solid var(--border-subtle);
-            color: var(--text-secondary);
+            padding: 6rem 5vw;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .footer-info h4 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            footer { flex-direction: column; align-items: flex-start; gap: 20px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="hero-badge">Veracruz, Mexico</div>
-        <h1>Sahid Exsome</h1>
-        <h2>Graphic Designer & Video Editor</h2>
+        <div class="role-tag">Portfolio 2026 &mdash; Veracruz, MX</div>
+        <h1>Sahid Exsome<br><span>Visual Designer</span> & Video Editor</h1>
         <p class="bio">
-            Visual professional with 3+ years of combined experience. Specialized in high-conversion digital advertising, institutional communication, and dynamic audiovisual content for the modern market.
+            Crafting high-conversion digital advertising, institutional communication, and dynamic audiovisual content. Focused on visual problem-solving and brand storytelling.
         </p>
     </header>
 
-    <!-- Menú de Filtros -->
-    <div class="filter-menu">
-        <button class="filter-btn active" data-filter="all">All Work</button>
-        <button class="filter-btn" data-filter="ads">Advertising</button>
-        <button class="filter-btn" data-filter="corporate">Corporate</button>
-        <button class="filter-btn" data-filter="retouch">Photo & Retouching</button>
-        <button class="filter-btn" data-filter="video">Video</button>
-    </div>
+    <main>
+        <!-- PUBLICIDAD -->
+        <section class="portfolio-section">
+            <div class="section-header"><h2>Advertising & Digital Art</h2></div>
+            <div class="editorial-grid">
+                
+                <div class="artwork" onclick="openLightbox('ads-coffee.jpg')">
+                    <div class="artwork-img-wrapper"><img src="ads-coffee.jpg" alt="Coffee Concept"></div>
+                    <div class="artwork-meta">
+                        <h3>Coffee Brand Aesthetic</h3><span>Photo-manipulation</span>
+                    </div>
+                </div>
 
-    <!-- Galería -->
-    <div class="container">
-        <div class="gallery-grid" id="gallery">
-            
-            <!-- PUBLICIDAD -->
-            <div class="gallery-item ads" onclick="openLightbox('ads-coffee.jpg')"><img src="ads-coffee.jpg" alt="Coffee Ad"></div>
-            <div class="gallery-item ads" onclick="openLightbox('ads-burger-tabloid.jpg')"><img src="ads-burger-tabloid.jpg" alt="Burger Tabloid"></div>
-            <div class="gallery-item ads" onclick="openLightbox('ads-burger-square.jpg')"><img src="ads-burger-square.jpg" alt="Burger Square"></div>
-            <div class="gallery-item ads" onclick="openLightbox('ads-bacardi-01.jpg')"><img src="ads-bacardi-01.jpg" alt="Bacardi 1"></div>
-            <div class="gallery-item ads" onclick="openLightbox('ads-bacardi-02.jpg')"><img src="ads-bacardi-02.jpg" alt="Bacardi 2"></div>
-            <div class="gallery-item ads" onclick="openLightbox('ads-corporate.jpg')"><img src="ads-corporate.jpg" alt="Corporate Ad"></div>
-            <div class="gallery-item ads" onclick="openLightbox('ads-halloween-uni.jpg')"><img src="ads-halloween-uni.jpg" alt="Halloween Flyer"></div>
+                <div class="artwork" onclick="openLightbox('ads-burger-tabloid.jpg')">
+                    <div class="artwork-img-wrapper"><img src="ads-burger-tabloid.jpg" alt="Burger Tabloid"></div>
+                    <div class="artwork-meta">
+                        <h3>Burger Promo Poster</h3><span>Print / Tabloid</span>
+                    </div>
+                </div>
 
-            <!-- CORPORATIVO -->
-            <div class="gallery-item corporate" onclick="openLightbox('inst-canacintra-01.jpg')"><img src="inst-canacintra-01.jpg" alt="Canacintra 1"></div>
-            <div class="gallery-item corporate" onclick="openLightbox('inst-canacintra-02.jpg')"><img src="inst-canacintra-02.jpg" alt="Canacintra 2"></div>
-            <div class="gallery-item corporate" onclick="openLightbox('inst-canacintra-03.jpg')"><img src="inst-canacintra-03.jpg" alt="Canacintra 3"></div>
-            <div class="gallery-item corporate" onclick="openLightbox('inst-canacintra-04.jpg')"><img src="inst-canacintra-04.jpg" alt="Canacintra 4"></div>
+                <div class="artwork" onclick="openLightbox('ads-bacardi-01.jpg')">
+                    <div class="artwork-img-wrapper"><img src="ads-bacardi-01.jpg" alt="Bacardi Concept"></div>
+                    <div class="artwork-meta">
+                        <h3>Bacardí Campaign I</h3><span>Digital Ad</span>
+                    </div>
+                </div>
 
-            <!-- RETOQUE -->
-            <div class="gallery-item retouch" onclick="openLightbox('photo-art-01.jpg')"><img src="photo-art-01.jpg" alt="Urban Photo"></div>
-            <div class="gallery-item retouch" onclick="openLightbox('photo-product-coffee.jpg')"><img src="photo-product-coffee.jpg" alt="Coffee Photo"></div>
+                <div class="artwork" onclick="openLightbox('ads-burger-square.jpg')">
+                    <div class="artwork-img-wrapper"><img src="ads-burger-square.jpg" alt="Burger Square"></div>
+                    <div class="artwork-meta">
+                        <h3>Burger Social Campaign</h3><span>Social Media</span>
+                    </div>
+                </div>
 
-            <!-- VIDEOS -->
-            <div class="gallery-item video">
-                <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" allow="autoplay"></iframe>
+                <div class="artwork" onclick="openLightbox('ads-bacardi-02.jpg')">
+                    <div class="artwork-img-wrapper"><img src="ads-bacardi-02.jpg" alt="Bacardi Concept 2"></div>
+                    <div class="artwork-meta">
+                        <h3>Bacardí Campaign II</h3><span>Digital Ad</span>
+                    </div>
+                </div>
+
+                <div class="artwork" onclick="openLightbox('ads-corporate.jpg')">
+                    <div class="artwork-img-wrapper"><img src="ads-corporate.jpg" alt="Corporate Ad"></div>
+                    <div class="artwork-meta">
+                        <h3>Corporate Promotion</h3><span>Freelance Project</span>
+                    </div>
+                </div>
+
+                <div class="artwork" onclick="openLightbox('ads-halloween-uni.jpg')">
+                    <div class="artwork-img-wrapper"><img src="ads-halloween-uni.jpg" alt="Halloween Flyer"></div>
+                    <div class="artwork-meta">
+                        <h3>University Halloween Event</h3><span>Event Design</span>
+                    </div>
+                </div>
+
             </div>
-            <div class="gallery-item video">
-                <iframe src="https://drive.google.com/file/d/1dTivB_KNOnZ_x4RBEVkNKt4sx-zPAXdp/preview" allow="autoplay"></iframe>
+        </section>
+
+        <!-- INSTITUCIONAL & RETOQUE MÍXTO -->
+        <section class="portfolio-section" style="background-color: #0a0a0c;">
+            <div class="section-header"><h2>Institutional & Photo Retouching</h2></div>
+            <div class="editorial-grid">
+                
+                <div class="artwork" onclick="openLightbox('photo-art-01.jpg')">
+                    <div class="artwork-img-wrapper"><img src="photo-art-01.jpg" alt="Urban Photo"></div>
+                    <div class="artwork-meta">
+                        <h3>Urban Portrait Edit</h3><span>Creative Retouching</span>
+                    </div>
+                </div>
+
+                <div class="artwork" onclick="openLightbox('inst-canacintra-01.jpg')">
+                    <div class="artwork-img-wrapper"><img src="inst-canacintra-01.jpg" alt="Canacintra 1"></div>
+                    <div class="artwork-meta">
+                        <h3>Women in Engineering Day</h3><span>CANACINTRA</span>
+                    </div>
+                </div>
+
+                <div class="artwork" onclick="openLightbox('photo-product-coffee.jpg')">
+                    <div class="artwork-img-wrapper"><img src="photo-product-coffee.jpg" alt="Coffee Photo"></div>
+                    <div class="artwork-meta">
+                        <h3>Product Photography</h3><span>Color Grading & Lights</span>
+                    </div>
+                </div>
+
+                <div class="artwork" onclick="openLightbox('inst-canacintra-02.jpg')">
+                    <div class="artwork-img-wrapper"><img src="inst-canacintra-02.jpg" alt="Canacintra 2"></div>
+                    <div class="artwork-meta">
+                        <h3>Business Breakfast Promo</h3><span>CANACINTRA</span>
+                    </div>
+                </div>
+
+                <div class="artwork" onclick="openLightbox('inst-canacintra-03.jpg')">
+                    <div class="artwork-img-wrapper"><img src="inst-canacintra-03.jpg" alt="Canacintra 3"></div>
+                    <div class="artwork-meta">
+                        <h3>Presidential Greeting</h3><span>CANACINTRA</span>
+                    </div>
+                </div>
+
+                <div class="artwork" onclick="openLightbox('inst-canacintra-04.jpg')">
+                    <div class="artwork-img-wrapper"><img src="inst-canacintra-04.jpg" alt="Canacintra 4"></div>
+                    <div class="artwork-meta">
+                        <h3>Governor Recognition</h3><span>CANACINTRA</span>
+                    </div>
+                </div>
+
             </div>
+        </section>
 
-        </div>
-    </div>
+        <!-- VIDEO -->
+        <section class="portfolio-section">
+            <div class="section-header"><h2>Audiovisual Production</h2></div>
+            <div class="video-grid">
+                <div class="video-wrapper">
+                    <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" allow="autoplay"></iframe>
+                    <div class="artwork-meta">
+                        <h3>Video Editing Reel</h3><span>Adobe Premiere Pro</span>
+                    </div>
+                </div>
+                <div class="video-wrapper">
+                    <iframe src="https://drive.google.com/file/d/1dTivB_KNOnZ_x4RBEVkNKt4sx-zPAXdp/preview" allow="autoplay"></iframe>
+                    <div class="artwork-meta">
+                        <h3>Short Film Trailer</h3><span>Directing & Editing</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    <!-- Contenedor del Lightbox (Oculto por defecto) -->
+    <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
         <span class="close-btn">&times;</span>
-        <img id="lightbox-img" src="" alt="Full Screen Image">
+        <img id="lightbox-img" src="" alt="Zoomed Artwork">
     </div>
 
     <footer>
-        <p>shdexsa@gmail.com | +52 229 520 7948</p>
-        <p>&copy; 2026 Sahid Exsome. All rights reserved.</p>
+        <div class="footer-info">
+            <h4>Ready to collaborate?</h4>
+            <p style="color: var(--text-muted);">shdexsa@gmail.com | +52 229 520 7948</p>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Sahid Exsome.</p>
     </footer>
 
-    <!-- Lógica de Filtros y Lightbox -->
     <script>
-        // FILTROS
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const galleryItems = document.querySelectorAll('.gallery-item');
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Quitar clase activa a todos y ponerla al botón clickeado
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const filterValue = btn.getAttribute('data-filter');
-
-                galleryItems.forEach(item => {
-                    if (filterValue === 'all' || item.classList.contains(filterValue)) {
-                        item.classList.remove('hide');
-                    } else {
-                        item.classList.add('hide');
-                    }
-                });
-            });
-        });
-
-        // LIGHTBOX
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
         function openLightbox(imageSrc) {
             lightboxImg.src = imageSrc;
             lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Evita scrollear el fondo
+            document.body.style.overflow = 'hidden'; 
         }
 
         function closeLightbox(event) {
-            // Cierra si das clic en el fondo o en la X, pero no si le das clic directo a la foto
             if(event.target !== lightboxImg) {
                 lightbox.classList.remove('active');
-                document.body.style.overflow = 'auto'; // Devuelve el scroll
-                setTimeout(() => { lightboxImg.src = ''; }, 300); // Limpia la imagen tras la animación
+                document.body.style.overflow = 'auto'; 
+                setTimeout(() => { lightboxImg.src = ''; }, 300);
             }
         }
     </script>
