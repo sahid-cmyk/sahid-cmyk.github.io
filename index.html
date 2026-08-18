@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sahid Exsome | Visual Portfolio</title>
     
+    <meta property="og:title" content="Sahid Exsome | Visual Portfolio">
+    <meta property="og:description" content="Visual Designer & Video Editor. Crafting high-conversion digital advertising, institutional communication, and dynamic audiovisual content.">
+    <meta property="og:image" content="https://sahid-cmyk.github.io/ads-coffee.jpg">
+    <meta property="og:url" content="https://sahid-cmyk.github.io/">
+    <meta property="og:type" content="website">
+    
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
     
     <style>
@@ -32,10 +38,10 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             position: relative;
-            cursor: none; /* Oculta cursor default en PC */
+            cursor: none; 
         }
 
-        /* --- 1. CUSTOM CURSOR (Premium Agency Style) --- */
+        /* --- 1. CUSTOM CURSOR --- */
         .custom-cursor {
             position: fixed; top: 0; left: 0; width: 12px; height: 12px;
             background-color: var(--text-main); border-radius: 50%;
@@ -55,39 +61,42 @@
             opacity: 1; display: block;
         }
         
-        /* Desactivar cursor en celulares y touch screens */
         @media (hover: none) and (pointer: coarse) {
             body { cursor: auto; }
             .custom-cursor { display: none !important; }
         }
 
-        /* --- EFECTOS DE FONDO (Cinematic) --- */
+        /* --- EFECTOS DE FONDO OPTIMIZADOS --- */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none; z-index: 9990; opacity: 0.04; 
             background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            will-change: transform;
         }
         .ambient-glow {
             position: fixed; top: -10%; left: -10%; width: 60vw; height: 60vw;
             background: radial-gradient(circle, rgba(25, 25, 35, 0.6) 0%, rgba(7, 7, 8, 0) 70%);
             border-radius: 50%; filter: blur(90px); z-index: -1;
-            animation: floatGlow 15s infinite alternate ease-in-out; will-change: transform;
+            animation: floatGlow 15s infinite alternate ease-in-out;
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
         }
         @keyframes floatGlow {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(15vw, 10vh) scale(1.2); }
+            0% { transform: translate3d(0, 0, 0) scale(1); }
+            100% { transform: translate3d(15vw, 10vh, 0) scale(1.2); }
         }
 
-        /* --- HERO EDITORIAL & ENMASCARAMIENTO (Clip-Path effect) --- */
+        /* --- HERO EDITORIAL & ENMASCARAMIENTO --- */
         header {
             min-height: 90vh; display: flex; flex-direction: column; justify-content: center;
             padding: 0 12vw; border-bottom: 1px solid var(--border);
             position: relative; z-index: 1;
         }
 
-        /* Contenedor para enmascarar texto */
         .reveal-mask { overflow: hidden; display: block; }
-        .hero-line, .bio-line { display: block; transform: translateY(120%); } /* Oculto inicialmente hacia abajo */
+        .hero-line, .bio-line { display: block; transform: translateY(120%) translateZ(0); will-change: transform; } 
 
         .role-tag {
             font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px;
@@ -107,7 +116,8 @@
         .section-header { margin-bottom: 4rem; overflow: hidden; }
         .section-header h2 { font-size: 2.2rem; font-weight: 300; letter-spacing: -1px; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
         .editorial-grid { column-count: 3; column-gap: 3vw; }
-        .artwork { break-inside: avoid; margin-bottom: 60px; opacity: 0; }
+        
+        .artwork { break-inside: avoid; margin-bottom: 60px; opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
         .artwork-img-wrapper { border-radius: 4px; overflow: hidden; background-color: #111; position: relative; }
         .artwork img {
             width: 100%; height: auto; display: block;
@@ -122,16 +132,15 @@
 
         /* --- VIDEO SECTION --- */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4vw; }
-        .video-container { opacity: 0; }
+        .video-container { opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
         .video-wrapper { border-radius: 4px; overflow: hidden; background: #111; position: relative; }
         
-        /* Capa invisible para atrapar el hover del ratón antes que el iframe de Google Drive */
         .video-hover-catcher { position: absolute; top:0; left:0; width:100%; height:80%; z-index: 10; pointer-events: none; }
         .video-wrapper:hover .video-hover-catcher { pointer-events: auto; } 
         
         .video-wrapper iframe { width: 100%; aspect-ratio: 16 / 9; border: none; z-index: 1; position: relative; }
 
-        /* --- 2. KINETIC MARQUEE (Scroll Velocity Text) --- */
+        /* --- KINETIC MARQUEE --- */
         .marquee-section {
             padding: 4rem 0; background: var(--bg-base); border-top: 1px solid var(--border);
             overflow: hidden; position: relative; z-index: 1; display: flex;
@@ -154,7 +163,7 @@
         .close-btn { position: absolute; top: 30px; right: 40px; color: white; font-size: 40px; cursor: pointer; font-family: sans-serif; font-weight: 100; transition: color 0.3s; }
         .close-btn:hover { color: var(--text-muted); }
 
-        /* --- FOOTER & BOTÓN MAGNÉTICO --- */
+        /* --- FOOTER --- */
         footer {
             padding: 6rem 12vw; border-top: 1px solid var(--border);
             display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1;
@@ -169,11 +178,13 @@
         }
         .magnetic-btn-wrap:hover .magnetic-btn { background: #d0d0d0; }
 
+        /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 1024px) {
             .editorial-grid { column-count: 2; } 
             header, .portfolio-section, footer { padding-left: 8vw; padding-right: 8vw; }
         }
-        @media (max-width: 600px) {
+        
+        @media (max-width: 768px) {
             .editorial-grid { column-count: 1; }
             .artwork, .video-container { width: 85%; margin-left: auto; margin-right: auto; margin-bottom: 50px; }
             header, .portfolio-section, footer { padding-left: 5vw; padding-right: 5vw; }
@@ -184,7 +195,6 @@
 </head>
 <body>
 
-    <!-- CUSTOM CURSOR -->
     <div class="custom-cursor">
         <span class="cursor-text">VIEW</span>
     </div>
@@ -207,7 +217,6 @@
     </header>
 
     <main>
-        <!-- PUBLICIDAD -->
         <section class="portfolio-section">
             <div class="section-header"><h2 class="gs-title">Advertising & Digital Art</h2></div>
             <div class="editorial-grid">
@@ -242,7 +251,6 @@
             </div>
         </section>
 
-        <!-- INSTITUCIONAL -->
         <section class="portfolio-section" style="background-color: rgba(10, 10, 12, 0.5);">
             <div class="section-header"><h2 class="gs-title">Institutional & Photo Retouching</h2></div>
             <div class="editorial-grid">
@@ -273,7 +281,6 @@
             </div>
         </section>
 
-        <!-- KINETIC MARQUEE -->
         <section class="marquee-section">
             <div class="marquee-inner" id="marqueeText">
                 <span>ART DIRECTION • MOTION GRAPHICS • VISUAL DESIGN • VIDEO EDITING • </span>
@@ -281,7 +288,6 @@
             </div>
         </section>
 
-        <!-- VIDEO -->
         <section class="portfolio-section">
             <div class="section-header"><h2 class="gs-title">Audiovisual Production</h2></div>
             <div class="video-grid">
@@ -311,7 +317,7 @@
     <footer>
         <div class="footer-info">
             <h4>Ready to collaborate?</h4>
-            <a href="mailto:shdexsa@gmail.com" class="magnetic-btn-wrap" style="text-decoration:none;" data-cursor="hide">
+            <a href="https://wa.me/522295207948" target="_blank" class="magnetic-btn-wrap" style="text-decoration:none;" data-cursor="hide">
                 <div class="magnetic-btn">Let's Talk</div>
             </a>
             <p style="color: var(--text-muted); margin-top: 15px;">shdexsa@gmail.com <br> +52 229 520 7948</p>
@@ -319,7 +325,6 @@
         <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Sahid Exsome.</p>
     </footer>
 
-    <!-- LIBRERÍAS DE ANIMACIÓN Y UX -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
@@ -335,23 +340,26 @@
         gsap.ticker.add((time) => { lenis.raf(time * 1000) });
         gsap.ticker.lagSmoothing(0);
 
-        /* 2. ANIMACIÓN DE ENTRADA (HERO MASK REVEAL) INMEDIATA */
+        /* 2. ANIMACIÓN DE ENTRADA (HERO MASK REVEAL) */
         document.addEventListener("DOMContentLoaded", () => {
             const tl = gsap.timeline();
-            tl.to(".hero-line", { y: "0%", duration: 1.2, stagger: 0.1, ease: "power4.out", delay: 0.2 })
+            tl.to(".hero-line", { y: "0%", duration: 1.2, stagger: 0.1, ease: "power4.out", delay: 0.4 })
               .to(".bio-line", { y: "0%", duration: 1, stagger: 0.1, ease: "power3.out" }, "-=0.8");
         });
 
-        /* 3. ANIMACIONES DE SCROLL (GALLERY) */
+        /* 3. ANIMACIONES DE SCROLL INDIVIDUALES */
         gsap.utils.toArray('.gs-title').forEach(title => {
             gsap.from(title, { scrollTrigger: { trigger: title, start: "top 85%" }, y: 50, opacity: 0, duration: 1.2, ease: "power3.out" });
         });
-        gsap.utils.toArray('.editorial-grid, .video-grid').forEach(grid => {
-            const items = grid.querySelectorAll('.gs-item');
-            gsap.to(items, { scrollTrigger: { trigger: grid, start: "top 80%" }, y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out" });
+        
+        gsap.utils.toArray('.gs-item').forEach(item => {
+            gsap.to(item, {
+                scrollTrigger: { trigger: item, start: "top 85%" },
+                y: 0, opacity: 1, duration: 1, ease: "power3.out"
+            });
         });
 
-        /* 4. MARQUEE DINÁMICO (ATADO A VELOCIDAD DE SCROLL) */
+        /* 4. MARQUEE DINÁMICO */
         const marqueeInner = document.getElementById("marqueeText");
         let marqueeAnim = gsap.to(marqueeInner, { xPercent: -50, repeat: -1, duration: 15, ease: "linear" });
         
