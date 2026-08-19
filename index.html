@@ -97,7 +97,10 @@
         }
 
         .reveal-mask { overflow: hidden; display: block; }
-        .hero-line, .bio-line { display: block; transform: translateY(120%) translateZ(0); will-change: transform; } 
+        
+        /* Padding inferior para evitar recortes en letras con cola como la "g" o "y" */
+        .hero-line { display: block; transform: translateY(120%) translateZ(0); will-change: transform; padding-bottom: 0.1em; } 
+        .bio-line { display: block; transform: translateY(120%) translateZ(0); will-change: transform; }
 
         .role-tag {
             font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px;
@@ -105,7 +108,8 @@
         }
         .role-tag::before { content: ""; display: block; width: 30px; height: 1px; background-color: var(--text-muted); }
 
-        h1 { font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 1.5rem; max-width: 1100px; }
+        /* Line-height aumentado a 1.15 para dar respiro entre las líneas del título */
+        h1 { font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 800; line-height: 1.15; letter-spacing: -2px; margin-bottom: 1.5rem; max-width: 1100px; }
         .italic-serif { font-family: 'Playfair Display', serif; font-weight: 400; font-style: italic; color: var(--text-muted); }
         .bio { max-width: 600px; font-size: 1.15rem; font-weight: 300; color: #a0a0a0; }
 
@@ -135,11 +139,11 @@
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4vw; }
         .video-container { opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
         
+        /* Enfoque limpio y nativo usando aspect-ratio */
         .video-wrapper { 
             position: relative; 
             width: 100%; 
-            padding-bottom: 56.25%; /* Relación de aspecto 16:9 pura */
-            height: 0; 
+            aspect-ratio: 16 / 9;
             border-radius: 4px; 
             overflow: hidden; 
             background: #111; 
@@ -211,11 +215,11 @@
             /* El artwork se mantiene a 85% para elegancia */
             .artwork { width: 85%; margin-left: auto; margin-right: auto; margin-bottom: 50px; }
             
-            /* Los videos se expanden al 100% del contenedor para ser más grandes */
-            .video-container { width: 100%; margin-left: auto; margin-right: auto; margin-bottom: 50px; }
+            /* Los videos ahora ocupan el 100% de la pantalla para ser mucho más grandes */
+            .video-container { width: 100%; margin-left: 0; margin-right: 0; margin-bottom: 50px; }
             
-            /* Ajuste matemático para darle espacio a la barra de Drive y evitar cortes */
-            .video-wrapper { padding-bottom: calc(56.25% + 45px); border-radius: 8px; }
+            /* En lugar de padding sucio, usamos aspect-ratio nativo ajustado para Drive */
+            .video-wrapper { aspect-ratio: 16 / 10; border-radius: 8px; }
 
             header, .portfolio-section, footer { padding-left: 5vw; padding-right: 5vw; }
             footer { flex-direction: column; align-items: flex-start; gap: 40px; }
@@ -329,7 +333,7 @@
             <div class="video-grid">
                 <div class="video-container gs-item">
                     <div class="video-wrapper">
-                        <!-- Removido todo efecto bloqueador. Libre de clics -->
+                        <!-- El iframe ahora está libre de capas invisibles, clics directos -->
                         <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" allow="autoplay; fullscreen"></iframe>
                     </div>
                     <div class="artwork-meta"><h3>Video Editing Reel</h3><span>Adobe Premiere Pro</span></div>
