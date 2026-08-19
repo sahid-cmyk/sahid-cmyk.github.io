@@ -70,9 +70,7 @@
         /* --- EFECTOS DE FONDO OPTIMIZADOS --- */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; 
-            z-index: 0; /* Solución: Mandado al fondo para no ensuciar las imágenes */
-            opacity: 0.04; 
+            pointer-events: none; z-index: 0; opacity: 0.04; 
             background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
             transform: translate3d(0, 0, 0);
             backface-visibility: hidden;
@@ -98,11 +96,13 @@
             position: relative; z-index: 1;
         }
 
-        h1 .reveal-mask { 
-            padding-bottom: 0.25em; 
-            margin-bottom: -0.25em; 
+        /* Solución Limpia para colas de letras (g, y, p) */
+        .reveal-mask { 
+            overflow: hidden; 
+            display: block; 
+            padding-bottom: 0.15em; 
+            margin-bottom: -0.15em; 
         }
-        .reveal-mask { overflow: hidden; display: block; }
         .hero-line, .bio-line { display: block; transform: translateY(120%) translateZ(0); will-change: transform; } 
 
         .role-tag {
@@ -111,7 +111,7 @@
         }
         .role-tag::before { content: ""; display: block; width: 30px; height: 1px; background-color: var(--text-muted); }
 
-        h1 { font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 1.5rem; max-width: 1100px; }
+        h1 { font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 800; line-height: 1.15; letter-spacing: -2px; margin-bottom: 1.5rem; max-width: 1100px; }
         .italic-serif { font-family: 'Playfair Display', serif; font-weight: 400; font-style: italic; color: var(--text-muted); }
         .bio { max-width: 600px; font-size: 1.15rem; font-weight: 300; color: #a0a0a0; }
 
@@ -141,6 +141,7 @@
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4vw; }
         .video-container { opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
         
+        /* Contenedor Limpio (Aspect-ratio nativo en PC) */
         .video-wrapper { 
             position: relative; 
             width: 100%; 
@@ -157,6 +158,7 @@
             height: 100%; 
             border: none; 
             z-index: 1; 
+            max-width: 100%; /* Fix nativo de iframes en iOS */
         }
 
         /* --- KINETIC MARQUEE --- */
@@ -214,8 +216,20 @@
             .editorial-grid { column-count: 1; }
             
             .artwork { width: 85%; margin-left: auto; margin-right: auto; margin-bottom: 50px; }
-            .video-container { width: 100%; margin-left: 0; margin-right: 0; margin-bottom: 50px; }
-            .video-wrapper { aspect-ratio: 4 / 3; border-radius: 8px; }
+            
+            /* Solución Edge-to-Edge para los videos en celular */
+            .video-container { width: 100%; margin-bottom: 60px; }
+            .video-wrapper { 
+                width: 100vw; 
+                margin-left: -5vw; /* Cancela el padding para tocar los bordes */
+                aspect-ratio: auto; /* Anulamos la restricción de PC */
+                height: 60vw; /* Da una altura dinámica basada en el ancho */
+                min-height: 260px; /* GARANTIZA el espacio físico para la UI de Google Drive */
+                border-radius: 0; /* Sin bordes curvos para el look inmersivo */
+            }
+            .video-container .artwork-meta {
+                padding: 0 5vw; /* Devuelve el margen al texto para que no toque la orilla */
+            }
 
             header, .portfolio-section, footer { padding-left: 5vw; padding-right: 5vw; }
             footer { flex-direction: column; align-items: flex-start; gap: 40px; }
@@ -328,14 +342,15 @@
             <div class="section-header"><h2 class="gs-title">Audiovisual Production</h2></div>
             <div class="video-grid">
                 <div class="video-container gs-item">
-                    <div class="video-wrapper">
-                        <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" allow="autoplay; fullscreen"></iframe>
+                    <!-- data-lenis-prevent desbloquea los toques en el celular -->
+                    <div class="video-wrapper" data-lenis-prevent>
+                        <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" allow="autoplay; fullscreen" scrolling="no"></iframe>
                     </div>
                     <div class="artwork-meta"><h3>Video Editing Reel</h3><span>Adobe Premiere Pro</span></div>
                 </div>
                 <div class="video-container gs-item">
-                    <div class="video-wrapper">
-                        <iframe src="https://drive.google.com/file/d/1dTivB_KNOnZ_x4RBEVkNKt4sx-zPAXdp/preview" allow="autoplay; fullscreen"></iframe>
+                    <div class="video-wrapper" data-lenis-prevent>
+                        <iframe src="https://drive.google.com/file/d/1dTivB_KNOnZ_x4RBEVkNKt4sx-zPAXdp/preview" allow="autoplay; fullscreen" scrolling="no"></iframe>
                     </div>
                     <div class="artwork-meta"><h3>Short Film Trailer</h3><span>Directing & Editing</span></div>
                 </div>
