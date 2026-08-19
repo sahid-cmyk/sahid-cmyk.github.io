@@ -135,11 +135,10 @@
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4vw; }
         .video-container { opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
         
-        /* Solución A-Prueba-De-Balas para proporción 16:9 en celulares */
         .video-wrapper { 
             position: relative; 
             width: 100%; 
-            padding-bottom: 56.25%; /* Forzamos la altura al formato 16:9 */
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 pura */
             height: 0; 
             border-radius: 4px; 
             overflow: hidden; 
@@ -159,8 +158,8 @@
         .marquee-section {
             padding: 4rem 0; 
             background: var(--bg-base); 
-            border-top: 1px solid rgba(255, 255, 255, 0.08); /* Borde superior más visible */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Borde inferior nuevo */
+            border-top: 1px solid rgba(255, 255, 255, 0.08); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
             overflow: hidden; 
             position: relative; 
             z-index: 1; 
@@ -169,8 +168,8 @@
         .marquee-inner {
             display: flex; white-space: nowrap; font-size: clamp(3rem, 6vw, 6rem);
             font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35); /* Trazos más fuertes */
-            color: rgba(255, 255, 255, 0.02); /* Ligero relleno sólido */
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35); 
+            color: rgba(255, 255, 255, 0.02); 
         }
         .marquee-inner span { padding-right: 3rem; }
 
@@ -208,7 +207,16 @@
         
         @media (max-width: 768px) {
             .editorial-grid { column-count: 1; }
-            .artwork, .video-container { width: 85%; margin-left: auto; margin-right: auto; margin-bottom: 50px; }
+            
+            /* El artwork se mantiene a 85% para elegancia */
+            .artwork { width: 85%; margin-left: auto; margin-right: auto; margin-bottom: 50px; }
+            
+            /* Los videos se expanden al 100% del contenedor para ser más grandes */
+            .video-container { width: 100%; margin-left: auto; margin-right: auto; margin-bottom: 50px; }
+            
+            /* Ajuste matemático para darle espacio a la barra de Drive y evitar cortes */
+            .video-wrapper { padding-bottom: calc(56.25% + 45px); border-radius: 8px; }
+
             header, .portfolio-section, footer { padding-left: 5vw; padding-right: 5vw; }
             footer { flex-direction: column; align-items: flex-start; gap: 40px; }
             .artwork-meta { align-items: center; text-align: center; } 
@@ -321,14 +329,14 @@
             <div class="video-grid">
                 <div class="video-container gs-item">
                     <div class="video-wrapper">
-                        <!-- El hover catcher y data-cursor se eliminaron para permitir clics libres -->
-                        <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" allow="autoplay"></iframe>
+                        <!-- Removido todo efecto bloqueador. Libre de clics -->
+                        <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" allow="autoplay; fullscreen"></iframe>
                     </div>
                     <div class="artwork-meta"><h3>Video Editing Reel</h3><span>Adobe Premiere Pro</span></div>
                 </div>
                 <div class="video-container gs-item">
                     <div class="video-wrapper">
-                        <iframe src="https://drive.google.com/file/d/1dTivB_KNOnZ_x4RBEVkNKt4sx-zPAXdp/preview" allow="autoplay"></iframe>
+                        <iframe src="https://drive.google.com/file/d/1dTivB_KNOnZ_x4RBEVkNKt4sx-zPAXdp/preview" allow="autoplay; fullscreen"></iframe>
                     </div>
                     <div class="artwork-meta"><h3>Short Film Trailer</h3><span>Directing & Editing</span></div>
                 </div>
@@ -427,12 +435,10 @@
             });
         });
 
-        /* Ocultar cursor falso cuando entra en el iframe de Google Drive */
-        document.addEventListener("mouseleave", () => {
-            cursor.style.opacity = 0;
-        });
-        document.addEventListener("mouseenter", () => {
-            cursor.style.opacity = 1;
+        /* Ocultar el cursor si entra a la zona de video para no estorbar con el reproductor nativo */
+        document.querySelectorAll('.video-wrapper').forEach(wrapper => {
+            wrapper.addEventListener('mouseenter', () => { cursor.style.opacity = 0; });
+            wrapper.addEventListener('mouseleave', () => { cursor.style.opacity = 1; });
         });
 
         /* 6. BOTÓN MAGNÉTICO */
