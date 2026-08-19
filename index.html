@@ -70,7 +70,9 @@
         /* --- EFECTOS DE FONDO OPTIMIZADOS --- */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 9990; opacity: 0.04; 
+            pointer-events: none; 
+            z-index: 0; /* Solución: Mandado al fondo para no ensuciar las imágenes */
+            opacity: 0.04; 
             background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
             transform: translate3d(0, 0, 0);
             backface-visibility: hidden;
@@ -96,7 +98,6 @@
             position: relative; z-index: 1;
         }
 
-        /* Solución Limpia para la letra "g": expandir la máscara sin romper el interlineado */
         h1 .reveal-mask { 
             padding-bottom: 0.25em; 
             margin-bottom: -0.25em; 
@@ -140,11 +141,10 @@
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4vw; }
         .video-container { opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
         
-        /* Contenedor Limpio (Aspect-ratio nativo) */
         .video-wrapper { 
             position: relative; 
             width: 100%; 
-            aspect-ratio: 16 / 9; /* Nativo 16:9 en PC */
+            aspect-ratio: 16 / 9;
             border-radius: 4px; 
             overflow: hidden; 
             background: #111; 
@@ -214,11 +214,7 @@
             .editorial-grid { column-count: 1; }
             
             .artwork { width: 85%; margin-left: auto; margin-right: auto; margin-bottom: 50px; }
-            
-            /* Videos ocupan el 100% de la pantalla para máxima visibilidad */
             .video-container { width: 100%; margin-left: 0; margin-right: 0; margin-bottom: 50px; }
-            
-            /* Solución Limpia para el Iframe: Usar aspecto 4:3 permite que Drive genere el letterbox sin cortar la UI */
             .video-wrapper { aspect-ratio: 4 / 3; border-radius: 8px; }
 
             header, .portfolio-section, footer { padding-left: 5vw; padding-right: 5vw; }
