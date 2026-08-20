@@ -23,13 +23,14 @@
             --border: #1a1a1a;
         }
 
-        /* --- SMOOTH SCROLL (LENIS) FIXES --- */
+        /* --- SMOOTH SCROLL (LENIS) CORE --- */
         html.lenis, html.lenis body { height: auto; width: 100%; overflow-x: hidden; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
         .lenis.lenis-stopped { overflow: hidden; }
         .lenis.lenis-scrolling iframe { pointer-events: none; }
 
+        /* --- RESET & TYPOGRAPHY --- */
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
         body {
@@ -39,17 +40,22 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             position: relative;
-            cursor: none; 
         }
 
-        /* --- 1. CUSTOM CURSOR --- */
+        @media (hover: hover) and (pointer: fine) {
+            body { cursor: none; }
+        }
+
+        /* --- CUSTOM CURSOR --- */
         .custom-cursor {
             position: fixed; top: 0; left: 0; width: 12px; height: 12px;
             background-color: var(--text-main); border-radius: 50%;
             pointer-events: none; z-index: 99999;
             display: flex; justify-content: center; align-items: center;
             transform: translate(-50%, -50%);
-            transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.3s, opacity 0.3s;
+            transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                        height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                        background-color 0.3s, opacity 0.3s;
         }
         .cursor-text {
             color: var(--bg-base); font-size: 10px; font-weight: 800; letter-spacing: 1px;
@@ -63,48 +69,41 @@
         }
         
         @media (hover: none) and (pointer: coarse) {
-            body { cursor: auto; }
             .custom-cursor { display: none !important; }
         }
 
-        /* --- EFECTOS DE FONDO OPTIMIZADOS --- */
+        /* --- AMBIENT EFFECTS --- */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none; z-index: 0; opacity: 0.04; 
             background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-            transform: translate3d(0, 0, 0);
-            backface-visibility: hidden;
-            will-change: transform;
+            transform: translate3d(0, 0, 0); backface-visibility: hidden; will-change: transform;
         }
         .ambient-glow {
             position: fixed; top: -10%; left: -10%; width: 60vw; height: 60vw;
             background: radial-gradient(circle, rgba(25, 25, 35, 0.6) 0%, rgba(7, 7, 8, 0) 70%);
             border-radius: 50%; filter: blur(90px); z-index: -1;
             animation: floatGlow 15s infinite alternate ease-in-out;
-            transform: translate3d(0, 0, 0);
-            will-change: transform;
+            transform: translate3d(0, 0, 0); will-change: transform;
         }
         @keyframes floatGlow {
-            0% { transform: translate3d(0, 0, 0) scale(1); }
+            0%   { transform: translate3d(0, 0, 0) scale(1); }
             100% { transform: translate3d(15vw, 10vh, 0) scale(1.2); }
         }
 
-        /* --- HERO EDITORIAL & ENMASCARAMIENTO --- */
+        /* --- HEADER & HERO --- */
         header {
             min-height: 90vh; display: flex; flex-direction: column; justify-content: center;
             padding: 0 12vw; border-bottom: 1px solid var(--border);
             position: relative; z-index: 1;
         }
-
-        /* Solución Limpia para colas de letras (g, y, p) */
         .reveal-mask { 
-            overflow: hidden; 
-            display: block; 
-            padding-bottom: 0.15em; 
-            margin-bottom: -0.15em; 
+            overflow: hidden; display: block; 
+            padding-bottom: 0.15em; margin-bottom: -0.15em; 
         }
-        .hero-line, .bio-line { display: block; transform: translateY(120%) translateZ(0); will-change: transform; } 
-
+        .hero-line, .bio-line { 
+            display: block; transform: translateY(120%) translateZ(0); will-change: transform; 
+        } 
         .role-tag {
             font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px;
             color: var(--text-muted); margin-bottom: 2rem; display: flex; align-items: center; gap: 10px;
@@ -115,16 +114,20 @@
         .italic-serif { font-family: 'Playfair Display', serif; font-weight: 400; font-style: italic; color: var(--text-muted); }
         .bio { max-width: 600px; font-size: 1.15rem; font-weight: 300; color: #a0a0a0; }
 
-        /* --- EDITORIAL GALLERY --- */
+        /* --- PORTFOLIO SECTIONS --- */
         .portfolio-section {
             padding: 6rem 12vw; max-width: 2000px; margin: 0 auto; position: relative; z-index: 1;
         }
-
         .section-header { margin-bottom: 4rem; overflow: hidden; }
         .section-header h2 { font-size: 2.2rem; font-weight: 300; letter-spacing: -1px; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
         .editorial-grid { column-count: 3; column-gap: 3vw; }
         
-        .artwork { break-inside: avoid; margin-bottom: 60px; opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
+        /* Agrupación de clases de animación */
+        .artwork, .video-container { 
+            opacity: 0; transform: translateY(40px); will-change: transform, opacity; 
+        }
+        .artwork { break-inside: avoid; margin-bottom: 60px; }
+        
         .artwork-img-wrapper { border-radius: 4px; overflow: hidden; background-color: #111; position: relative; }
         .artwork img {
             width: 100%; height: auto; display: block;
@@ -137,46 +140,33 @@
         .artwork-meta h3 { font-size: 1.05rem; font-weight: 600; color: var(--accent); line-height: 1.2; }
         .artwork-meta span { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- VIDEO SECTION --- */
+        /* --- VIDEO IMPLEMENTATION --- */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4vw; }
-        .video-container { opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
-        
-        /* Contenedor Limpio (Aspect-ratio nativo en PC) */
         .video-wrapper { 
             position: relative; 
             width: 100%; 
-            aspect-ratio: 16 / 9;
+            height: 0; 
+            padding-bottom: calc(56.25% + 55px); /* ESTRUCTURA PURA W3C */
             border-radius: 4px; 
-            overflow: hidden; 
             background: #111; 
         }
         .video-wrapper iframe { 
             position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            border: none; 
-            z-index: 1; 
-            max-width: 100%; /* Fix nativo de iframes en iOS */
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            border: none; z-index: 1; border-radius: 4px; 
         }
 
         /* --- KINETIC MARQUEE --- */
         .marquee-section {
-            padding: 4rem 0; 
-            background: var(--bg-base); 
-            border-top: 1px solid rgba(255, 255, 255, 0.08); 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
-            overflow: hidden; 
-            position: relative; 
-            z-index: 1; 
-            display: flex;
+            padding: 4rem 0; background: var(--bg-base); 
+            border-top: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+            overflow: hidden; position: relative; z-index: 1; display: flex;
         }
         .marquee-inner {
             display: flex; white-space: nowrap; font-size: clamp(3rem, 6vw, 6rem);
             font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35); 
-            color: rgba(255, 255, 255, 0.02); 
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35); color: rgba(255, 255, 255, 0.02); 
         }
         .marquee-inner span { padding-right: 3rem; }
 
@@ -188,7 +178,10 @@
         }
         .lightbox.active { opacity: 1; pointer-events: all; cursor: auto; }
         .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
-        .close-btn { position: absolute; top: 30px; right: 40px; color: white; font-size: 40px; cursor: pointer; font-family: sans-serif; font-weight: 100; transition: color 0.3s; }
+        .close-btn { 
+            position: absolute; top: 30px; right: 40px; color: white; font-size: 40px; 
+            cursor: pointer; font-family: sans-serif; font-weight: 100; transition: color 0.3s; 
+        }
         .close-btn:hover { color: var(--text-muted); }
 
         /* --- FOOTER --- */
@@ -214,23 +207,9 @@
         
         @media (max-width: 768px) {
             .editorial-grid { column-count: 1; }
-            
-            .artwork { width: 85%; margin-left: auto; margin-right: auto; margin-bottom: 50px; }
-            
-            /* Solución Edge-to-Edge para los videos en celular */
-            .video-container { width: 100%; margin-bottom: 60px; }
-            .video-wrapper { 
-                width: 100vw; 
-                margin-left: -5vw; /* Cancela el padding para tocar los bordes */
-                aspect-ratio: auto; /* Anulamos la restricción de PC */
-                height: 60vw; /* Da una altura dinámica basada en el ancho */
-                min-height: 260px; /* GARANTIZA el espacio físico para la UI de Google Drive */
-                border-radius: 0; /* Sin bordes curvos para el look inmersivo */
-            }
-            .video-container .artwork-meta {
-                padding: 0 5vw; /* Devuelve el margen al texto para que no toque la orilla */
-            }
-
+            .artwork { width: 85%; margin: 0 auto 50px auto; }
+            .video-grid { display: block; }
+            .video-container { width: 90%; margin: 0 auto 50px auto; }
             header, .portfolio-section, footer { padding-left: 5vw; padding-right: 5vw; }
             footer { flex-direction: column; align-items: flex-start; gap: 40px; }
             .artwork-meta { align-items: center; text-align: center; } 
@@ -342,15 +321,14 @@
             <div class="section-header"><h2 class="gs-title">Audiovisual Production</h2></div>
             <div class="video-grid">
                 <div class="video-container gs-item">
-                    <!-- data-lenis-prevent desbloquea los toques en el celular -->
-                    <div class="video-wrapper" data-lenis-prevent>
-                        <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" allow="autoplay; fullscreen" scrolling="no"></iframe>
+                    <div class="video-wrapper">
+                        <iframe src="https://drive.google.com/file/d/1l4QuFz_EJwxuVsYExem9nkO81vQwMnMu/preview" title="Video Editing Reel" allow="autoplay; fullscreen"></iframe>
                     </div>
                     <div class="artwork-meta"><h3>Video Editing Reel</h3><span>Adobe Premiere Pro</span></div>
                 </div>
                 <div class="video-container gs-item">
-                    <div class="video-wrapper" data-lenis-prevent>
-                        <iframe src="https://drive.google.com/file/d/1dTivB_KNOnZ_x4RBEVkNKt4sx-zPAXdp/preview" allow="autoplay; fullscreen" scrolling="no"></iframe>
+                    <div class="video-wrapper">
+                        <iframe src="https://drive.google.com/file/d/1dTivB_KNOnZ_x4RBEVkNKt4sx-zPAXdp/preview" title="Short Film Trailer" allow="autoplay; fullscreen"></iframe>
                     </div>
                     <div class="artwork-meta"><h3>Short Film Trailer</h3><span>Directing & Editing</span></div>
                 </div>
@@ -358,8 +336,9 @@
         </section>
     </main>
 
+    <!-- Cierre accesible para el Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" aria-label="Close Lightbox">&times;</button>
         <img id="lightbox-img" src="" alt="Zoomed Artwork">
     </div>
 
@@ -380,9 +359,9 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
 
     <script>
+        // --- INICIALIZACIÓN ---
         gsap.registerPlugin(ScrollTrigger);
 
-        /* 1. LENIS SMOOTH SCROLL */
         const lenis = new Lenis({
             duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true
         });
@@ -390,26 +369,28 @@
         gsap.ticker.add((time) => { lenis.raf(time * 1000) });
         gsap.ticker.lagSmoothing(0);
 
-        /* 2. ANIMACIÓN DE ENTRADA (HERO MASK REVEAL) */
+        // --- ANIMACIONES DE ENTRADA (GSAP Cache) ---
         document.addEventListener("DOMContentLoaded", () => {
             const tl = gsap.timeline();
             tl.to(".hero-line", { y: "0%", duration: 1.2, stagger: 0.1, ease: "power4.out", delay: 0.4 })
               .to(".bio-line", { y: "0%", duration: 1, stagger: 0.1, ease: "power3.out" }, "-=0.8");
         });
 
-        /* 3. ANIMACIONES DE SCROLL INDIVIDUALES */
-        gsap.utils.toArray('.gs-title').forEach(title => {
+        // Almacenamiento en variables para eficiencia RAM
+        const sectionTitles = gsap.utils.toArray('.gs-title');
+        sectionTitles.forEach(title => {
             gsap.from(title, { scrollTrigger: { trigger: title, start: "top 85%" }, y: 50, opacity: 0, duration: 1.2, ease: "power3.out" });
         });
         
-        gsap.utils.toArray('.gs-item').forEach(item => {
+        const galleryItems = gsap.utils.toArray('.gs-item');
+        galleryItems.forEach(item => {
             gsap.to(item, {
                 scrollTrigger: { trigger: item, start: "top 85%" },
                 y: 0, opacity: 1, duration: 1, ease: "power3.out"
             });
         });
 
-        /* 4. MARQUEE DINÁMICO */
+        // --- MARQUEE ---
         const marqueeInner = document.getElementById("marqueeText");
         let marqueeAnim = gsap.to(marqueeInner, { xPercent: -50, repeat: -1, duration: 15, ease: "linear" });
         
@@ -420,57 +401,58 @@
             gsap.to(marqueeAnim, { timeScale: 1, duration: 1, delay: 0.1 });
         });
 
-        /* 5. CUSTOM CURSOR */
-        const cursor = document.querySelector('.custom-cursor');
-        const cursorText = document.querySelector('.cursor-text');
-        
-        let xTo = gsap.quickTo(cursor, "x", {duration: 0.1, ease: "power3"});
-        let yTo = gsap.quickTo(cursor, "y", {duration: 0.1, ease: "power3"});
+        // --- CUSTOM CURSOR & MAGNETIC BTNS ---
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+            
+            const cursor = document.querySelector('.custom-cursor');
+            const cursorText = document.querySelector('.cursor-text');
+            
+            let xTo = gsap.quickTo(cursor, "x", {duration: 0.1, ease: "power3"});
+            let yTo = gsap.quickTo(cursor, "y", {duration: 0.1, ease: "power3"});
 
-        window.addEventListener("mousemove", (e) => {
-            xTo(e.clientX);
-            yTo(e.clientY);
-        });
-
-        document.querySelectorAll('[data-cursor]').forEach(item => {
-            item.addEventListener('mouseenter', (e) => {
-                let type = item.getAttribute('data-cursor');
-                if(type === 'view') {
-                    cursor.classList.add('hover-view');
-                    cursorText.innerText = "VIEW";
-                } else if(type === 'hide') {
-                    cursor.style.opacity = 0; 
-                }
+            window.addEventListener("mousemove", (e) => {
+                xTo(e.clientX);
+                yTo(e.clientY);
             });
-            item.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hover-view');
-                cursor.style.opacity = 1;
-                cursorText.innerText = "";
-            });
-        });
 
-        /* Ocultar el cursor si entra a la zona de video */
-        document.querySelectorAll('.video-wrapper').forEach(wrapper => {
-            wrapper.addEventListener('mouseenter', () => { cursor.style.opacity = 0; });
-            wrapper.addEventListener('mouseleave', () => { cursor.style.opacity = 1; });
-        });
-
-        /* 6. BOTÓN MAGNÉTICO */
-        const magneticBtns = document.querySelectorAll('.magnetic-btn-wrap');
-        magneticBtns.forEach(btnWrap => {
-            const btn = btnWrap.querySelector('.magnetic-btn'); 
-            btnWrap.addEventListener('mousemove', (e) => {
-                const rect = btnWrap.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                gsap.to(btn, { x: x * 0.4, y: y * 0.4, duration: 0.8, ease: "power3.out" });
+            document.querySelectorAll('[data-cursor]').forEach(item => {
+                item.addEventListener('mouseenter', (e) => {
+                    let type = item.getAttribute('data-cursor');
+                    if(type === 'view') {
+                        cursor.classList.add('hover-view');
+                        cursorText.innerText = "VIEW";
+                    } else if(type === 'hide') {
+                        cursor.style.opacity = 0; 
+                    }
+                });
+                item.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover-view');
+                    cursor.style.opacity = 1;
+                    cursorText.innerText = "";
+                });
             });
-            btnWrap.addEventListener('mouseleave', () => {
-                gsap.to(btn, { x: 0, y: 0, duration: 1.2, ease: "elastic.out(1, 0.3)" });
-            });
-        });
 
-        /* 7. LIGHTBOX */
+            document.querySelectorAll('.video-wrapper').forEach(wrapper => {
+                wrapper.addEventListener('mouseenter', () => { cursor.style.opacity = 0; });
+                wrapper.addEventListener('mouseleave', () => { cursor.style.opacity = 1; });
+            });
+
+            const magneticBtns = document.querySelectorAll('.magnetic-btn-wrap');
+            magneticBtns.forEach(btnWrap => {
+                const btn = btnWrap.querySelector('.magnetic-btn'); 
+                btnWrap.addEventListener('mousemove', (e) => {
+                    const rect = btnWrap.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    gsap.to(btn, { x: x * 0.4, y: y * 0.4, duration: 0.8, ease: "power3.out" });
+                });
+                btnWrap.addEventListener('mouseleave', () => {
+                    gsap.to(btn, { x: 0, y: 0, duration: 1.2, ease: "elastic.out(1, 0.3)" });
+                });
+            });
+        }
+
+        // --- LIGHTBOX ---
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
@@ -478,14 +460,18 @@
             lightboxImg.src = imageSrc;
             lightbox.classList.add('active');
             lenis.stop(); 
-            cursor.style.display = 'none'; 
+            if (window.matchMedia("(hover: hover)").matches) {
+                document.querySelector('.custom-cursor').style.display = 'none'; 
+            }
         }
 
         function closeLightbox(event) {
             if(event.target !== lightboxImg) {
                 lightbox.classList.remove('active');
                 lenis.start(); 
-                cursor.style.display = 'flex';
+                if (window.matchMedia("(hover: hover)").matches) {
+                    document.querySelector('.custom-cursor').style.display = 'flex';
+                }
                 setTimeout(() => { lightboxImg.src = ''; }, 400);
             }
         }
