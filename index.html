@@ -111,13 +111,13 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background-color: #ffffff;
             border-radius: 50%;
             pointer-events: none;
             transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease, transform 0.15s ease-out;
+            transition: opacity 0.3s ease; /* SOLUCIÓN: Eliminado el 'transform 0.15s ease-out' que causaba el lag */
             z-index: 1000000;
         }
 
@@ -125,17 +125,17 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 44px;
-            height: 44px;
-            border: 1px solid rgba(255, 255, 255, 0.35);
+            width: 46px;
+            height: 46px;
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
             border-radius: 50%;
             pointer-events: none;
             display: flex;
             justify-content: center;
             align-items: center;
             transform: translate(-50%, -50%);
-            transition: width 0.4s var(--ease-out-expo), 
-                        height 0.4s var(--ease-out-expo), 
+            transition: width 0.35s var(--ease-out-expo), 
+                        height 0.35s var(--ease-out-expo), 
                         background-color 0.35s ease, 
                         border-color 0.35s ease,
                         opacity 0.3s ease;
@@ -582,7 +582,7 @@
         }
 
         /* ==========================================================================
-           LIGHTBOX EXPERIENCE (NUEVO DISEÑO ESTRUCTURAL)
+           LIGHTBOX EXPERIENCE
            ========================================================================== */
         .lightbox {
             position: fixed;
@@ -634,10 +634,9 @@
             border-radius: 4px;
             box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9);
             border: 1px solid var(--border-subtle);
-            display: block; /* Evita espacios vacíos debajo de la foto */
+            display: block;
         }
 
-        /* Rediseño del botón X. Alto contraste y siempre pegado a la esquina de la foto */
         .lightbox-close-btn {
             position: absolute;
             top: -18px;
@@ -802,7 +801,6 @@
                 width: 100% !important;
             }
 
-            /* Ajuste del botón X en celulares */
             .lightbox-close-btn {
                 top: -14px;
                 right: -10px;
@@ -817,7 +815,7 @@
             footer {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 50px;
+                gap: 40px;
             }
 
             .artwork-meta {
@@ -887,8 +885,7 @@
             </div>
 
             <div class="editorial-grid">
-                <!-- Coffee -->
-                <div class="artwork gs-item" data-cursor="view" data-title="Coffee Brand Aesthetic" data-category="Photo-manipulation" onclick="openLightbox('ads-coffee.jpg', 'Coffee Brand Aesthetic &bull; Photo-manipulation')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('ads-coffee.jpg', 'Coffee Brand Aesthetic &bull; Photo-manipulation')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="ads-coffee.jpg" alt="Coffee Concept" loading="lazy" decoding="async">
@@ -902,8 +899,7 @@
                     </div>
                 </div>
 
-                <!-- Burger Tabloid -->
-                <div class="artwork gs-item" data-cursor="view" data-title="Burger Promo Poster" data-category="Print / Tabloid" onclick="openLightbox('ads-burger-tabloid.jpg', 'Burger Promo Poster &bull; Print / Tabloid')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('ads-burger-tabloid.jpg', 'Burger Promo Poster &bull; Print / Tabloid')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="ads-burger-tabloid.jpg" alt="Burger Tabloid" loading="lazy" decoding="async">
@@ -917,8 +913,7 @@
                     </div>
                 </div>
 
-                <!-- Bacardi 01 -->
-                <div class="artwork gs-item" data-cursor="view" data-title="Bacardí Campaign I" data-category="Digital Ad" onclick="openLightbox('ads-bacardi-01.jpg', 'Bacardí Campaign I &bull; Digital Ad')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('ads-bacardi-01.jpg', 'Bacardí Campaign I &bull; Digital Ad')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="ads-bacardi-01.jpg" alt="Bacardi Concept" loading="lazy" decoding="async">
@@ -932,8 +927,7 @@
                     </div>
                 </div>
 
-                <!-- Burger Square -->
-                <div class="artwork gs-item" data-cursor="view" data-title="Burger Social Campaign" data-category="Social Media" onclick="openLightbox('ads-burger-square.jpg', 'Burger Social Campaign &bull; Social Media')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('ads-burger-square.jpg', 'Burger Social Campaign &bull; Social Media')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="ads-burger-square.jpg" alt="Burger Square" loading="lazy" decoding="async">
@@ -947,8 +941,7 @@
                     </div>
                 </div>
 
-                <!-- Bacardi 02 -->
-                <div class="artwork gs-item" data-cursor="view" data-title="Bacardí Campaign II" data-category="Digital Ad" onclick="openLightbox('ads-bacardi-02.jpg', 'Bacardí Campaign II &bull; Digital Ad')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('ads-bacardi-02.jpg', 'Bacardí Campaign II &bull; Digital Ad')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="ads-bacardi-02.jpg" alt="Bacardi Concept 2" loading="lazy" decoding="async">
@@ -962,8 +955,7 @@
                     </div>
                 </div>
 
-                <!-- Corporate -->
-                <div class="artwork gs-item" data-cursor="view" data-title="Corporate Promotion" data-category="Freelance Project" onclick="openLightbox('ads-corporate.jpg', 'Corporate Promotion &bull; Freelance Project')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('ads-corporate.jpg', 'Corporate Promotion &bull; Freelance Project')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="ads-corporate.jpg" alt="Corporate Ad" loading="lazy" decoding="async">
@@ -977,8 +969,7 @@
                     </div>
                 </div>
 
-                <!-- Halloween -->
-                <div class="artwork gs-item" data-cursor="view" data-title="University Halloween Event" data-category="Event Design" onclick="openLightbox('ads-halloween-uni.jpg', 'University Halloween Event &bull; Event Design')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('ads-halloween-uni.jpg', 'University Halloween Event &bull; Event Design')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="ads-halloween-uni.jpg" alt="Halloween Flyer" loading="lazy" decoding="async">
@@ -1002,8 +993,7 @@
             </div>
 
             <div class="editorial-grid">
-                <!-- Urban Photo -->
-                <div class="artwork gs-item" data-cursor="view" data-title="Urban Portrait Edit" data-category="Creative Retouching" onclick="openLightbox('photo-art-01.jpg', 'Urban Portrait Edit &bull; Creative Retouching')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('photo-art-01.jpg', 'Urban Portrait Edit &bull; Creative Retouching')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="photo-art-01.jpg" alt="Urban Photo" loading="lazy" decoding="async">
@@ -1017,8 +1007,7 @@
                     </div>
                 </div>
 
-                <!-- Canacintra 01 -->
-                <div class="artwork gs-item" data-cursor="view" data-title="Women in Engineering" data-category="CANACINTRA" onclick="openLightbox('inst-canacintra-01.jpg', 'Women in Engineering &bull; CANACINTRA')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('inst-canacintra-01.jpg', 'Women in Engineering &bull; CANACINTRA')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="inst-canacintra-01.jpg" alt="Canacintra 1" loading="lazy" decoding="async">
@@ -1032,8 +1021,7 @@
                     </div>
                 </div>
 
-                <!-- Product Coffee -->
-                <div class="artwork gs-item" data-cursor="view" data-title="Product Photography" data-category="Color Grading" onclick="openLightbox('photo-product-coffee.jpg', 'Product Photography &bull; Color Grading')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('photo-product-coffee.jpg', 'Product Photography &bull; Color Grading')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="photo-product-coffee.jpg" alt="Coffee Photo" loading="lazy" decoding="async">
@@ -1047,8 +1035,7 @@
                     </div>
                 </div>
 
-                <!-- Canacintra 02 -->
-                <div class="artwork gs-item" data-cursor="view" data-title="Business Breakfast Promo" data-category="CANACINTRA" onclick="openLightbox('inst-canacintra-02.jpg', 'Business Breakfast Promo &bull; CANACINTRA')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('inst-canacintra-02.jpg', 'Business Breakfast Promo &bull; CANACINTRA')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="inst-canacintra-02.jpg" alt="Canacintra 2" loading="lazy" decoding="async">
@@ -1062,8 +1049,7 @@
                     </div>
                 </div>
 
-                <!-- Canacintra 03 -->
-                <div class="artwork gs-item" data-cursor="view" data-title="Presidential Greeting" data-category="CANACINTRA" onclick="openLightbox('inst-canacintra-03.jpg', 'Presidential Greeting &bull; CANACINTRA')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('inst-canacintra-03.jpg', 'Presidential Greeting &bull; CANACINTRA')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="inst-canacintra-03.jpg" alt="Canacintra 3" loading="lazy" decoding="async">
@@ -1077,8 +1063,7 @@
                     </div>
                 </div>
 
-                <!-- Canacintra 04 -->
-                <div class="artwork gs-item" data-cursor="view" data-title="Governor Recognition" data-category="CANACINTRA" onclick="openLightbox('inst-canacintra-04.jpg', 'Governor Recognition &bull; CANACINTRA')">
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('inst-canacintra-04.jpg', 'Governor Recognition &bull; CANACINTRA')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
                             <img src="inst-canacintra-04.jpg" alt="Canacintra 4" loading="lazy" decoding="async">
@@ -1112,7 +1097,6 @@
             </div>
 
             <div class="video-grid">
-                <!-- Video Reel -->
                 <div class="video-container gs-item">
                     <div class="video-wrapper">
                         <iframe src="https://player.vimeo.com/video/1219717092?title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Video Editing Reel"></iframe>
@@ -1125,7 +1109,6 @@
                     </div>
                 </div>
 
-                <!-- Short Film Trailer -->
                 <div class="video-container gs-item">
                     <div class="video-wrapper">
                         <iframe src="https://player.vimeo.com/video/1219716492?title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Short Film Trailer"></iframe>
@@ -1141,14 +1124,11 @@
         </section>
     </main>
 
-    <!-- PREMIUM LIGHTBOX MODAL (ESTRUCTURA REDISEÑADA) -->
+    <!-- PREMIUM LIGHTBOX MODAL -->
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Media Preview" onclick="handleLightboxClick(event)">
         <div class="lightbox-content-wrapper">
-            
             <div class="lightbox-image-container">
                 <img id="lightbox-img" src="" alt="Zoomed Artwork Preview">
-                
-                <!-- Botón anidado al contenedor de la imagen -->
                 <button class="lightbox-close-btn" onclick="closeLightbox()" aria-label="Close Lightbox">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -1156,7 +1136,6 @@
                     </svg>
                 </button>
             </div>
-
             <div class="lightbox-caption" id="lightbox-caption"></div>
         </div>
     </div>
@@ -1186,7 +1165,6 @@
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 
     <script>
-        // --- INITIALIZE GSAP & LENIS SYNCHRONIZATION ---
         gsap.registerPlugin(ScrollTrigger);
 
         const lenis = new Lenis({
@@ -1241,7 +1219,7 @@
         });
 
         const galleryItems = gsap.utils.toArray('.gs-item');
-        galleryItems.forEach((item, index) => {
+        galleryItems.forEach((item) => {
             gsap.to(item, {
                 scrollTrigger: {
                     trigger: item,
@@ -1255,7 +1233,7 @@
             });
         });
 
-        // --- KINETIC MARQUEE WITH VELOCITY CONTROL ---
+        // --- KINETIC MARQUEE ---
         const marqueeTrack = document.getElementById("marqueeTrack");
         let marqueeTween = gsap.to(marqueeTrack, {
             xPercent: -50,
@@ -1264,30 +1242,33 @@
             ease: "none"
         });
 
-        lenis.on('scroll', (e) => {
-            const velocity = Math.abs(e.velocity || 0);
-            const targetTimeScale = 1 + (velocity * 0.12);
-            gsap.to(marqueeTween, { timeScale: targetTimeScale, duration: 0.35, ease: "power1.out" });
-            gsap.to(marqueeTween, { timeScale: 1, duration: 1.2, delay: 0.15, ease: "power2.out" });
-        });
-
-        // --- CUSTOM CURSOR & AMBIENT SPOTLIGHT ---
         const isFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
+        if (isFinePointer) {
+            lenis.on('scroll', (e) => {
+                const velocity = Math.abs(e.velocity || 0);
+                const targetTimeScale = 1 + (velocity * 0.12);
+                gsap.to(marqueeTween, { timeScale: targetTimeScale, duration: 0.35, ease: "power1.out" });
+                gsap.to(marqueeTween, { timeScale: 1, duration: 1.2, delay: 0.15, ease: "power2.out" });
+            });
+        }
+
+        // --- CUSTOM CURSOR ---
         if (isFinePointer) {
             const cursorDot = document.getElementById('cursorDot');
             const cursorRing = document.getElementById('cursorRing');
             const cursorText = document.getElementById('cursorText');
             const spotlight = document.getElementById('cursorSpotlight');
 
-            const setDotX = gsap.quickTo(cursorDot, "x", { duration: 0.08, ease: "power3" });
-            const setDotY = gsap.quickTo(cursorDot, "y", { duration: 0.08, ease: "power3" });
+            // Solución: Tiempos ajustados para un seguimiento híper reactivo pero suave
+            const setDotX = gsap.quickTo(cursorDot, "x", { duration: 0.04, ease: "power3.out" });
+            const setDotY = gsap.quickTo(cursorDot, "y", { duration: 0.04, ease: "power3.out" });
 
-            const setRingX = gsap.quickTo(cursorRing, "x", { duration: 0.32, ease: "power3" });
-            const setRingY = gsap.quickTo(cursorRing, "y", { duration: 0.32, ease: "power3" });
+            const setRingX = gsap.quickTo(cursorRing, "x", { duration: 0.15, ease: "power3.out" });
+            const setRingY = gsap.quickTo(cursorRing, "y", { duration: 0.15, ease: "power3.out" });
 
-            const setSpotX = gsap.quickTo(spotlight, "x", { duration: 0.7, ease: "power2" });
-            const setSpotY = gsap.quickTo(spotlight, "y", { duration: 0.7, ease: "power2" });
+            const setSpotX = gsap.quickTo(spotlight, "x", { duration: 0.45, ease: "power2" });
+            const setSpotY = gsap.quickTo(spotlight, "y", { duration: 0.45, ease: "power2" });
 
             window.addEventListener("mousemove", (e) => {
                 setDotX(e.clientX);
@@ -1298,7 +1279,6 @@
                 setSpotY(e.clientY);
             });
 
-            // Interactive View triggers
             document.querySelectorAll('[data-cursor="view"]').forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     cursorRing.classList.add('cursor-ring-active');
@@ -1311,7 +1291,7 @@
                 });
             });
 
-            // Magnetic Button Interactions
+            // Solución: Animación nativa de GSAP en lugar de inyección dura de CSS
             const magneticWraps = document.querySelectorAll('[data-cursor="magnetic"]');
             magneticWraps.forEach(wrap => {
                 const btn = wrap.querySelector('.magnetic-btn');
@@ -1328,8 +1308,11 @@
                         ease: "power2.out"
                     });
 
-                    cursorRing.style.transform = `translate(-50%, -50%) scale(1.35)`;
-                    cursorRing.style.borderColor = 'rgba(255, 255, 255, 0.7)';
+                    gsap.to(cursorRing, { 
+                        scale: 1.35, 
+                        borderColor: 'rgba(255, 255, 255, 0.7)', 
+                        duration: 0.3 
+                    });
                 });
 
                 wrap.addEventListener('mouseleave', () => {
@@ -1340,12 +1323,14 @@
                         ease: "elastic.out(1, 0.35)"
                     });
 
-                    cursorRing.style.transform = `translate(-50%, -50%) scale(1)`;
-                    cursorRing.style.borderColor = 'rgba(255, 255, 255, 0.35)';
+                    gsap.to(cursorRing, { 
+                        scale: 1, 
+                        borderColor: 'rgba(255, 255, 255, 0.35)', 
+                        duration: 0.3 
+                    });
                 });
             });
 
-            // Hide custom ring over iframes
             document.querySelectorAll('.video-wrapper').forEach(wrapper => {
                 wrapper.addEventListener('mouseenter', () => {
                     cursorRing.classList.add('cursor-hidden');
@@ -1358,16 +1343,20 @@
             });
         }
 
-        // --- ENHANCED LIGHTBOX CONTROLLER ---
+        // --- CONTROLADOR DEL LIGHTBOX BLINDADO CONTRA CLICS RÁPIDOS ---
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxCaption = document.getElementById('lightbox-caption');
+        let lightboxCleanupTimeout = null;
 
         function openLightbox(src, captionText = "") {
+            if (lightboxCleanupTimeout) {
+                clearTimeout(lightboxCleanupTimeout);
+                lightboxCleanupTimeout = null;
+            }
+
             lightboxImg.src = src;
             lightboxCaption.innerHTML = captionText;
-            
-            // Activar Lightbox y restaurar cursor nativo
             lightbox.classList.add('active');
             document.body.classList.add('lightbox-open');
             lenis.stop();
@@ -1379,7 +1368,6 @@
         }
 
         function closeLightbox() {
-            // Desactivar Lightbox y volver a ocultar cursor nativo
             lightbox.classList.remove('active');
             document.body.classList.remove('lightbox-open');
             lenis.start();
@@ -1389,20 +1377,20 @@
                 document.getElementById('cursorDot').classList.remove('cursor-hidden');
             }
 
-            setTimeout(() => {
-                lightboxImg.src = '';
-                lightboxCaption.innerHTML = '';
+            lightboxCleanupTimeout = setTimeout(() => {
+                if (!lightbox.classList.contains('active')) {
+                    lightboxImg.src = '';
+                    lightboxCaption.innerHTML = '';
+                }
             }, 450);
         }
 
         function handleLightboxClick(e) {
-            // Si el usuario hace click afuera de la imagen, se cierra
             if (!e.target.closest('.lightbox-image-container')) {
                 closeLightbox();
             }
         }
 
-        // Keyboard ESC accessibility
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && lightbox.classList.contains('active')) {
                 closeLightbox();
