@@ -117,7 +117,7 @@
             border-radius: 50%;
             pointer-events: none;
             transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease; /* SOLUCIÓN: Eliminado el 'transform 0.15s ease-out' que causaba el lag */
+            transition: opacity 0.3s ease;
             z-index: 1000000;
         }
 
@@ -885,6 +885,22 @@
             </div>
 
             <div class="editorial-grid">
+                
+                <!-- NUEVO: AI Burger Compositing -->
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('ads-burger-ai.jpg', 'AI-Assisted Product Compositing &bull; Art Direction & Photo-manipulation')">
+                    <div class="artwork-inner">
+                        <div class="artwork-img-wrapper">
+                            <img src="ads-burger-ai.jpg" alt="AI-Assisted Burger Concept" loading="lazy" decoding="async">
+                        </div>
+                        <div class="artwork-meta">
+                            <h3>AI-Assisted Product Compositing</h3>
+                            <div class="artwork-meta-footer">
+                                <span>Art Direction & Photo-manipulation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('ads-coffee.jpg', 'Coffee Brand Aesthetic &bull; Photo-manipulation')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
@@ -993,6 +1009,22 @@
             </div>
 
             <div class="editorial-grid">
+                
+                <!-- NUEVO: Coatepec Flyer -->
+                <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('inst-coatepec.jpg', 'Tourism Promotional Flyer &bull; Print & Layout Design')">
+                    <div class="artwork-inner">
+                        <div class="artwork-img-wrapper">
+                            <img src="inst-coatepec.jpg" alt="Coatepec Tourism Flyer" loading="lazy" decoding="async">
+                        </div>
+                        <div class="artwork-meta">
+                            <h3>Tourism Promotional Flyer</h3>
+                            <div class="artwork-meta-footer">
+                                <span>Print & Layout Design</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('photo-art-01.jpg', 'Urban Portrait Edit &bull; Creative Retouching')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
@@ -1260,7 +1292,6 @@
             const cursorText = document.getElementById('cursorText');
             const spotlight = document.getElementById('cursorSpotlight');
 
-            // Solución: Tiempos ajustados para un seguimiento híper reactivo pero suave
             const setDotX = gsap.quickTo(cursorDot, "x", { duration: 0.04, ease: "power3.out" });
             const setDotY = gsap.quickTo(cursorDot, "y", { duration: 0.04, ease: "power3.out" });
 
@@ -1291,7 +1322,6 @@
                 });
             });
 
-            // Solución: Animación nativa de GSAP en lugar de inyección dura de CSS
             const magneticWraps = document.querySelectorAll('[data-cursor="magnetic"]');
             magneticWraps.forEach(wrap => {
                 const btn = wrap.querySelector('.magnetic-btn');
