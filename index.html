@@ -553,6 +553,12 @@
             will-change: transform, opacity;
         }
 
+        .video-centered-item {
+            grid-column: 1 / -1;
+            width: calc(50% - (clamp(2rem, 4vw, 4rem) / 2));
+            margin: 0 auto;
+        }
+
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -886,7 +892,7 @@
 
             <div class="editorial-grid">
                 
-                <!-- NUEVO: AI Burger Compositing -->
+                <!-- AI Burger Compositing -->
                 <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('ads-burger-ai.jpg', 'AI-Assisted Product Compositing &bull; Art Direction & Photo-manipulation')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
@@ -1010,7 +1016,7 @@
 
             <div class="editorial-grid">
                 
-                <!-- NUEVO: Coatepec Flyer -->
+                <!-- Coatepec Flyer -->
                 <div class="artwork gs-item" data-cursor="view" onclick="openLightbox('inst-coatepec.jpg', 'Tourism Promotional Flyer &bull; Print & Layout Design')">
                     <div class="artwork-inner">
                         <div class="artwork-img-wrapper">
@@ -1149,6 +1155,19 @@
                         <h3>Short Film Trailer</h3>
                         <div class="artwork-meta-footer">
                             <span>Directing & Editing</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- NUEVO: Apple iPhone Spec Ad -->
+                <div class="video-container gs-item video-centered-item">
+                    <div class="video-wrapper">
+                        <iframe src="https://player.vimeo.com/video/1222778022?title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Apple iPhone Concept Spec Ad"></iframe>
+                    </div>
+                    <div class="artwork-meta">
+                        <h3>Apple iPhone &ndash; Concept Spec Ad</h3>
+                        <div class="artwork-meta-footer">
+                            <span>AI Video &amp; Post-Production</span>
                         </div>
                     </div>
                 </div>
